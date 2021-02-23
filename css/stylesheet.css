@@ -29,6 +29,7 @@ h1 {
     z-index: 3;             /* Top elem on page*/
     width: 100%;            /* Banner full-screen width */
     height: 80px;           /* Banner height 80px */
+    border-bottom: 2px solid var(--nsc-grey, grey);
     background-color: var(--nsc-blue, blue);
     color: var(--nsc-almostwhite)
 }
