@@ -1,0 +1,86 @@
+{
+    "courseTitle": "Strategic Reasons for Thinking",
+    "courseID": "WBT-123-SS-10",
+    "studyGuidePDF": "WBT-SS-123-101_508.pdf",
+	"studyGuidePrint": "WBT-SS-123-101_studyGuide.pdf",
+    "mainSequence": {
+        "type": "sequence",
+        "title": "mainSequence",
+        "items": [
+            {
+                "type": "slide",
+                "title": "Introduction",
+                "options": {
+                    "header": "Welcome to the Course!",
+                    "header1": "SMA-WBT-AS-123"
+                }
+            }, 
+            {
+                "type": "slide",
+                "title": "welcome slide",
+                "options": {
+                    "header1": "in this course youll learn stuff",
+                    "list": [
+                        "blah",
+                        "ascas",
+                        "ok"
+                    ]  
+                }
+            },
+            {
+                "type": "menu",
+                "title": "Main Menu",
+                "options": {
+                    "header": "hello main menu"
+                },
+                "items": [
+                    {
+                        "type": "external-link",
+                        "title": "link to google!",
+                        "link": ["www.google.com", "tab"]
+                    },
+                    {
+                        "type": "sequence",
+                        "title": "blah sequence",
+                        "items": [
+                            {
+                                "type": "slide",
+                                "title": "hello blah",
+                                "options": {
+                                    "header": "blah blah"
+                                }
+                            },
+                            {
+                                "type": "slide",
+                                "title": "alright",
+                                "options": {
+                                    "header": "thats it!"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "sequence",
+                        "title": "summary",
+                        "items": [
+                            {
+                                "type": "slide",
+                                "title": "Summary Slide",
+                                "options": {
+                                    "header": "goodbye"
+                                }
+                            },
+                            {
+                                "type": "slide",
+                                "title": "complete",
+                                "options": {
+                                    "header": "wow youre done!"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
