@@ -36,7 +36,7 @@ button:hover, input:hover, .link:hover, .menu-item:hover {
     width: 100%;
     height: 100%;
     text-align: center;
-    max-width: 1500px;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -53,6 +53,9 @@ button:hover, input:hover, .link:hover, .menu-item:hover {
 .icon-container img {
     max-width: 100%;
     max-height: 90%;
+}
+#course-title {
+    font-size: 18px;
 }
 
 /* CONTENT */
@@ -72,11 +75,15 @@ button:hover, input:hover, .link:hover, .menu-item:hover {
 }
 
 /* CONTROL */
-.control {
+#control {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 10px;
+}
+#external-links {
+    display: flex;
+    flex-direction: row;
 }
 .control-button {
     color: var(--nsc-almostwhite, white);
@@ -89,29 +96,32 @@ button:hover, input:hover, .link:hover, .menu-item:hover {
 }
 .link {
     background-color: var(--nsc-blue, blue);
+    margin: 5px;
     border-radius: 10px;
 }
 .link img {
     display: block;
-    width: 30px;
     padding: 5px;
 }
 
 /* SLIDE */
-/* SLIDE BANNER */
+/* SLIDE/ MENU BANNER */
 .slide {
     width: 100%;
     height: 100%;
     border-radius: 10px;
     background-color: var(--nsc-almostwhite, white);
 }
-.slide-banner {
+.slide-banner, .menu-banner {
     display: flex;
     align-items: center;
     font-size: 20px;
     border-radius: 10px 10px 0px 0px;
     color: var(--nsc-almostwhite, white);
     background-color: var(--nsc-blue, blue);
+}
+.menu-banner {
+    background-color: var(--nsc-darkgrey, blue);
 }
 .slide-status {
     display: flex;
@@ -136,7 +146,36 @@ button:hover, input:hover, .link:hover, .menu-item:hover {
     line-height: 40px;
 }
 .slide-header1 {
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 700;
-    line-height: 25px;
+    line-height: 30px;
+}
+.slide-list {
+    list-style-position: inside;
+    margin: 10px;
+}
+.slide-list-elem {
+    font-size: 15px;
+    line-height: 20px;
+}
+
+/* SLIDE MENU */
+.menu {
+    display: flex;
+    align-items: center;
+}
+.menu-item {
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    border-radius: 10px;
+    background-color: var(--nsc-lightblue, blue);
+}
+.menu-sequence {
+    background-color: var(--nsc-darkgrey, grey);
+}
+.menu-text {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 15px;
 }

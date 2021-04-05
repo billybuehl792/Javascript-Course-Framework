@@ -39,11 +39,6 @@ class Sequence {
         return items;
     }
 
-    render() {
-        // build first item to page
-        var slideContainer = $("#container")
-    }
-
 
 }
 
@@ -59,22 +54,11 @@ class Slide {
         this.viewed = false;
     }
 
-    // get slide() {
-    //     return this.title;
-    // }
-
-    slideOff() {
-        $("#slide-container").slideUp(200);
-        $("#slide-container").html("");
+    render() {
+        currentSlide = this;
+        $("#slide-container").html(this.buildSlide());
     }
 
-    slideOn() {
-        console.log("slide on!");
-        var slideCode = this.buildSlide();
-        $("#slide-container").html(slideCode);
-        $(".slide").slideDown(200);
-    }
-    
     // generate slide HTML
     buildSlide() {
 
@@ -92,7 +76,7 @@ class Slide {
             statusBox.className = "slide-status";       // statusBox class name
             titleBox.className = "slide-title";         // titleBox class name
             slideTitle.innerHTML = title;               // set slide's title  
-            if (status) {                               // if slide visited, render checkmark
+            if (viewed) {                               // if slide visited, render checkmark
                 status = document.createElement("img");
                 status.src = "img/check-white_1.png";
                 status.alt = "checkmark";
@@ -113,40 +97,44 @@ class Slide {
         function mkContent(options) {
             var slideContent = document.createElement("div");
             slideContent.className = "slide-content";
-            if (options.header) {                              // append header
-                var header = document.createElement("h1");
-                header.innerHTML = options.header;
-                header.className = "slide-header";
-                slideContent.appendChild(header);
-            }
-            if (options.header1) {                              // append header1
-                var header1 = document.createElement("h2");
-                header1.className = "slide-header1"
-                header1.innerHTML = options.header1;
-                slideContent.appendChild(header1);
-            }
-            if (options.list) {                                 // append list
-                var ul = document.createElement("ul");
-                var li;
-                for (let i=0; i<options.list.length; i++) {
-                    li = document.createElement("li");
-                    li.innerHTML = options.list[i];
-                    ul.appendChild(li);
+            if (options) {
+                if (options.header) {                              // append header
+                    var header = document.createElement("h1");
+                    header.innerHTML = options.header;
+                    header.className = "slide-header";
+                    slideContent.appendChild(header);
                 }
-                slideContent.appendChild(ul);
+                if (options.header1) {                              // append header1
+                    var header1 = document.createElement("h2");
+                    header1.className = "slide-header1"
+                    header1.innerHTML = options.header1;
+                    slideContent.appendChild(header1);
+                }
+                if (options.list) {                                 // append list
+                    var ul = document.createElement("ul");
+                    var li;
+                    ul.className = "slide-list";
+                    for (let i=0; i<options.list.length; i++) {
+                        li = document.createElement("li");
+                        li.className = "slide-list-elem";
+                        li.innerHTML = options.list[i];
+                        ul.appendChild(li);
+                    }
+                    slideContent.appendChild(ul);
+                }
             }
+
             return slideContent;
         }
-
-        var slide = document.createElement("div");
-        slide.className = "slide";
-
+        
         // get slide banner
         // get slide content
+        var slide = document.createElement("div");
         var banner = mkBanner(this.title, this.slideNum, this.viewed);
         var slideContent = mkContent(this.options);
 
         // add banner and slideContent to slide div
+        slide.className = "slide";
         slide.appendChild(banner);
         slide.appendChild(slideContent);
 
@@ -183,8 +171,110 @@ class Menu extends Slide {
     }
 
     render() {
-        // generate menu HTML
-        this.viewed = true;                     // slide visited
+        currentSlide = this;
+        $("#slide-container").html(this.buildMenu());
+    }
+
+    buildMenu() {
+
+        // generate slide banner HTML
+        function mkBanner(title, slideNum, viewed) {                          
+            var banner = document.createElement("div");
+            var statusBox = document.createElement("div");
+            var container = document.createElement("div");
+            var titleBox = document.createElement("div");
+            var slideTitle = document.createElement("h1");
+            var status;
+
+            container.className = "container";
+            banner.className = "menu-banner";           // banner class name
+            statusBox.className = "slide-status";       // statusBox class name
+            titleBox.className = "slide-title";         // titleBox class name
+            slideTitle.innerHTML = title;               // set slide's title  
+            if (viewed) {                               // if slide visited, render checkmark
+                status = document.createElement("img");
+                status.src = "img/check-white_1.png";
+                status.alt = "checkmark";
+            } else {                                    // render slide's number in sequence
+                status = document.createElement("h1");
+                status.innerHTML = slideNum + 1;
+            }
+            container.appendChild(status);
+            statusBox.appendChild(container);
+            titleBox.appendChild(slideTitle);
+            banner.appendChild(statusBox);
+            banner.appendChild(titleBox);
+
+            return banner;
+        }
+        
+        // generate slide content HTML
+        function mkContent(options, items) {
+            var slideContent = document.createElement("div");
+            var menuItems = document.createElement("div");
+
+            slideContent.className = "slide-content";
+            if (options) {
+                if (options.header) {                              // append header
+                    var header = document.createElement("h1");
+                    header.innerHTML = options.header;
+                    header.className = "slide-header";
+                    slideContent.appendChild(header);
+                }
+            }
+
+
+            for (let i=0; i < items.length; i++) {
+                var menuItem = document.createElement("div");
+                var iconContainer = document.createElement("div");
+                var menuTextBox = document.createElement("div");
+                var menuItemIcon = document.createElement("img");
+                var menuText = document.createElement("h2");
+
+                menuItems.className = "menu";
+
+                menuText.className = "menu-text";
+                menuText.innerHTML = items[i].title;
+                
+                menuItem.classList.add("menu-item");
+                if (items[i].type == "sequence") {
+                    menuItem.classList.add("menu-sequence");
+                } else if (items[i].type == "menu") {
+                    menuItem.classList.add("menu-menu");
+                } else if (items[i].type == "external-link") {
+                    menuItem.classList.add("menu-link");
+                }
+
+                menuItemIcon.src = "img/icon_menuitem.png";
+                menuItemIcon.alt = "menu-item-icon";
+
+                menuTextBox.appendChild(menuText);
+                iconContainer.appendChild(menuItemIcon);
+                menuItem.appendChild(menuTextBox);
+                menuItem.appendChild(iconContainer);
+                menuItems.appendChild(menuItem);
+            }
+
+            slideContent.appendChild(menuItems);
+            return slideContent;
+        }
+
+        var slide = document.createElement("div");
+        slide.className = "slide";
+
+        // get slide banner
+        // get slide content
+        var banner = mkBanner(this.title, this.slideNum, this.viewed);
+        console.log(this.options);
+        var slideContent = mkContent(this.options, this.items);
+
+        // add banner and slideContent to slide div
+        slide.appendChild(banner);
+        slide.appendChild(slideContent);
+
+        // change slide to 'visited'
+        this.viewed = true;
+        return slide;
     }
 
 }
@@ -198,17 +288,32 @@ class ExternalLink {
     }
 }
 
+function interpretControl() {
+    if (currentSlide.next) {
+        $("#next").prop("disabled", false);
+    }
+    if (currentSlide.previous) {
 
-// // build slide to page
-// function slideOn(slide) {
-//     console.log("slide on!");
-//     slide.render();
-//     $("#slide-container").slideDown(200);
-// }
+    }
+}
 
-// function slideOff(slide) {
-//     $("#slide-container").slideUp(200);
-// }
+function nextSlide() {
+    currentSlide.viewed = true;
+    if (currentSlide.next) {
+        currentSlide.next.render();
+    } else {
+        $("#next").prop("disabled", true);
+    }
+}
+
+function prevSlide() {
+    if (currentSlide.previous) {
+        $("#back").prop("disabled", false);
+        currentSlide.previous.render();
+    } else {
+        $("#back").prop("disabled", true);
+    }
+}
 
 $(document).ready(function() {
 
@@ -226,9 +331,11 @@ $(document).ready(function() {
 
         var main = config.mainSequence;
         var mainSequence = new Sequence(main.title, main.items);
-        currentSlide = mainSequence.items[2];
-        currentSlide.slideOn();
+        currentSlide = mainSequence.items[0];
+        currentSlide.render();
     });
 
+    $("#next").click(nextSlide);
+    $("#back").click(prevSlide);
 
 });

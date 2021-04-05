@@ -1,5 +1,5 @@
 {
-    "courseTitle": "Strategic Reasons for Thinking",
+    "courseTitle": "Strategic Reasons for Thinking Strategically",
     "courseID": "WBT-123-SS-10",
     "studyGuidePDF": "WBT-SS-123-101_508.pdf",
 	"studyGuidePrint": "WBT-SS-123-101_studyGuide.pdf",
@@ -11,15 +11,15 @@
                 "type": "slide",
                 "title": "Introduction",
                 "options": {
-                    "header": "Welcome to the Course!",
+                    "header": "Strategic Reasons for Thinking Strategically",
                     "header1": "SMA-WBT-AS-123"
                 }
             }, 
             {
                 "type": "slide",
-                "title": "welcome slide",
+                "title": "Welcome to the Course",
                 "options": {
-                    "header1": "in this course youll learn stuff",
+                    "header1": "In this course you'll learn all sorts of great stuff.",
                     "list": [
                         "blah",
                         "ascas",
@@ -30,9 +30,6 @@
             {
                 "type": "menu",
                 "title": "Main Menu",
-                "options": {
-                    "header": "hello main menu"
-                },
                 "items": [
                     {
                         "type": "external-link",
