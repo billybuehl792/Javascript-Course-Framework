@@ -2,9 +2,25 @@
 
 var currentSlide;
 
+// Sequence, Slide, Menu, Link, etc.
+class Item {
+    constructor(title) {
+        this.title = title;
+    }
+
+    get id() {
+        var S4 = function() {
+            return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+        };
+        return ("s"+S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    }
+
+}
+
 // Sequence of slides and menus
-class Sequence {
+class Sequence extends Item {
     constructor(title, itemConfig, previous=null, next=null) {
+        super(title);
         this.type = "sequence";
         this.title = title;
         this.itemConfig = itemConfig;
@@ -43,8 +59,9 @@ class Sequence {
 }
 
 // Content Slide
-class Slide {
+class Slide extends Item {
     constructor(title, options, slideNum, previous=null, next=null) {
+        super(title);
         this.type = "slide";
         this.title = title;
         this.options = options;
@@ -265,7 +282,6 @@ class Menu extends Slide {
         // get slide banner
         // get slide content
         var banner = mkBanner(this.title, this.slideNum, this.viewed);
-        console.log(this.options);
         var slideContent = mkContent(this.options, this.items);
 
         // add banner and slideContent to slide div
@@ -280,13 +296,15 @@ class Menu extends Slide {
 }
 
 // Menu item linking to external doc/ page
-class ExternalLink {
+class ExternalLink extends Item {
     constructor(title, link) {
-        this.title = title;
+        super(title);
         this.link = link;
         this.viewed = false;
     }
 }
+
+
 
 function interpretControl() {
     if (currentSlide.next) {
@@ -332,6 +350,7 @@ $(document).ready(function() {
         var main = config.mainSequence;
         var mainSequence = new Sequence(main.title, main.items);
         currentSlide = mainSequence.items[0];
+        console.log(mainSequence);
         currentSlide.render();
     });
 
