@@ -160,24 +160,20 @@ class Slide extends Item {
 
     render() {
         currentSlide = this;
-        $("#slide-container").html(this.slideHTML).promise().done(function() {
-            console.log($("#slide-container").html());
-            $("#"+this.id).animate({
-                marginLeft: "0px",
-                opacity: "1"
-            }, 300);
+        var slideHTML = this.slideHTML;
+
+        $("#slide-container").html(slideHTML).promise().done(function() {
+            $(".slide").animate({
+                opacity: "1",
+                marginLeft: "0px"
+            }, 150, "swing");
         });
+
         $("#page-number").html(this.slideNum + 1);
         $("#total-pages").html(this.parent.items.length);
         this.viewed = true;
     }
 
-    off() {
-        $("#"+this.id).animate({
-            marginLeft: "-300px",
-            opacity: "0"
-        }, 300);
-    }
 }
 
 // Menu slide connecting sequences and links
@@ -268,15 +264,23 @@ class ExternalLink extends Item {
 
 function nextSlide() {
     if (currentSlide.next) {
-        // currentSlide.off();
-        currentSlide.next.render();
+        $(".slide").animate({
+            marginLeft: "-200px",
+            opacity: "0"
+        }, 200, "swing", function() {
+            currentSlide.next.render();
+        });
     }
 }
 
 function prevSlide() {
     if (currentSlide.previous) {
-        // $("#back").prop("disabled", false);
-        currentSlide.previous.render();
+        $(".slide").animate({
+            marginLeft: "200px",
+            opacity: "0"
+        }, 200, "swing", function() {
+            currentSlide.previous.render();
+        });
     }
 }
 
@@ -296,8 +300,7 @@ $(document).ready(function() {
 
         var main = config.mainSequence;
         var mainSequence = new Sequence(main.title, main.items);
-        console.log(mainSequence.id);
-        console.log(mainSequence.id);
+        console.log(mainSequence);
         currentSlide = mainSequence.items[0];
 
         currentSlide.render();
