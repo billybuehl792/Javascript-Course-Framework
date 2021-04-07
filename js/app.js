@@ -4,8 +4,8 @@ var currentSlide;
 
 // Sequence, Slide, Menu, Link, etc.
 class Item {
-    constructor(title) {
-        this.title = title;
+    constructor(_title) {
+        this.title = _title;
         this.id = this.genID();
     }
 
@@ -20,14 +20,13 @@ class Item {
 
 // Sequence of slides and menus
 class Sequence extends Item {
-    constructor(title, itemConfig, parent=null, previous=null, next=null) {
-        super(title);
+    constructor(_title, _itemConfig, _parent=null, _previous=null, _next=null) {
+        super(_title);
         this.type = "sequence";
-        this.title = title;
-        this.itemConfig = itemConfig;
-        this.parent = parent;
-        this.previous = previous;
-        this.next = next;
+        this.itemConfig = _itemConfig;
+        this.parent = _parent;
+        this.previous = _previous;
+        this.next = _next;
     }
 
     get items() {
@@ -60,15 +59,14 @@ class Sequence extends Item {
 
 // Content Slide
 class Slide extends Item {
-    constructor(title, options, slideNum, parent, previous=null, next=null) {
-        super(title);
+    constructor(_title, _options, _slideNum, _parent, _previous=null, _next=null) {
+        super(_title);
         this.type = "slide";
-        this.title = title;
-        this.options = options;
-        this.previous = previous;
-        this.next = next;
-        this.slideNum = slideNum;
-        this.parent = parent;
+        this.options = _options;
+        this.previous = _previous;
+        this.next = _next;
+        this.slideNum = _slideNum;
+        this.parent = _parent;
         this.viewed = false;
     }
     
@@ -184,10 +182,10 @@ class Slide extends Item {
 
 // Menu slide connecting sequences and links
 class Menu extends Slide {
-    constructor(title, options, slideNum, parent, itemConfig, previous, next) {
-        super(title, options, slideNum, parent, previous, next);
+    constructor(_title, _options, _slideNum, _parent, _itemConfig, _previous, _next) {
+        super(_title, _options, _slideNum, _parent, _previous, _next);
         this.type = "menu";
-        this.itemConfig = itemConfig;
+        this.itemConfig = _itemConfig;
     }
 
     get items() {
@@ -260,9 +258,9 @@ class Menu extends Slide {
 
 // Menu item linking to external doc/ page
 class ExternalLink extends Item {
-    constructor(title, link) {
-        super(title);
-        this.link = link;
+    constructor(_title, _link) {
+        super(_title);
+        this.link = _link;
         this.viewed = false;
     }
 }
@@ -298,9 +296,8 @@ $(document).ready(function() {
 
         var main = config.mainSequence;
         var mainSequence = new Sequence(main.title, main.items);
-
-        console.log(mainSequence.items);
-        console.log(mainSequence.items);
+        console.log(mainSequence.id);
+        console.log(mainSequence.id);
         currentSlide = mainSequence.items[0];
 
         currentSlide.render();
