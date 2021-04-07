@@ -6,9 +6,10 @@ var currentSlide;
 class Item {
     constructor(title) {
         this.title = title;
+        this.id = this.genID();
     }
 
-    get id() {
+    genID() {
         var S4 = function() {
             return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
         };
@@ -19,11 +20,12 @@ class Item {
 
 // Sequence of slides and menus
 class Sequence extends Item {
-    constructor(title, itemConfig, previous=null, next=null) {
+    constructor(title, itemConfig, parent=null, previous=null, next=null) {
         super(title);
         this.type = "sequence";
         this.title = title;
         this.itemConfig = itemConfig;
+        this.parent = parent;
         this.previous = previous;
         this.next = next;
     }
@@ -36,9 +38,9 @@ class Sequence extends Item {
             var itemConf = this.itemConfig[i];
             var item;
             if (itemConf.type === "slide") {
-                item = new Slide(itemConf.title, itemConf.options, i);
+                item = new Slide(itemConf.title, itemConf.options, i, this);
             } else if (itemConf.type === "menu") {
-                item = new Menu(itemConf.title, itemConf.options, i, itemConf.items);
+                item = new Menu(itemConf.title, itemConf.options, i, this, itemConf.items);
             }
             
             item.previous = previous;           // set item's previous to previous
@@ -54,13 +56,11 @@ class Sequence extends Item {
 
         return items;
     }
-
-
 }
 
 // Content Slide
 class Slide extends Item {
-    constructor(title, options, slideNum, previous=null, next=null) {
+    constructor(title, options, slideNum, parent, previous=null, next=null) {
         super(title);
         this.type = "slide";
         this.title = title;
@@ -68,6 +68,7 @@ class Slide extends Item {
         this.previous = previous;
         this.next = next;
         this.slideNum = slideNum;
+        this.parent = parent;
         this.viewed = false;
     }
     
@@ -150,6 +151,7 @@ class Slide extends Item {
         var slideHTML = document.createElement("div");
         var banner = mkBanner(this.title, this.slideNum, this.viewed)
 
+        slideHTML.id = this.id;
         slideHTML.className = "slide";
         
         slideHTML.appendChild(banner);
@@ -160,15 +162,30 @@ class Slide extends Item {
 
     render() {
         currentSlide = this;
-        $("#slide-container").html(this.slideHTML);
+        $("#slide-container").html(this.slideHTML).promise().done(function() {
+            console.log($("#slide-container").html());
+            $("#"+this.id).animate({
+                marginLeft: "0px",
+                opacity: "1"
+            }, 300);
+        });
+        $("#page-number").html(this.slideNum + 1);
+        $("#total-pages").html(this.parent.items.length);
         this.viewed = true;
+    }
+
+    off() {
+        $("#"+this.id).animate({
+            marginLeft: "-300px",
+            opacity: "0"
+        }, 300);
     }
 }
 
 // Menu slide connecting sequences and links
 class Menu extends Slide {
-    constructor(title, options, slideNum, itemConfig, previous, next) {
-        super(title, options, slideNum, previous, next);
+    constructor(title, options, slideNum, parent, itemConfig, previous, next) {
+        super(title, options, slideNum, parent, previous, next);
         this.type = "menu";
         this.itemConfig = itemConfig;
     }
@@ -179,7 +196,7 @@ class Menu extends Slide {
             var itemConf = this.itemConfig[i];
             var item;
             if (itemConf.type === "sequence") {
-                item = new Sequence(itemConf.title, itemConf.items, this, this);
+                item = new Sequence(itemConf.title, itemConf.items, this, this, this);
             } else if (itemConf.type === "external-link") {
                 item = new ExternalLink(itemConf.title, itemConf.link);
             }
@@ -251,31 +268,17 @@ class ExternalLink extends Item {
 }
 
 
-
-function interpretControl() {
-    if (currentSlide.next) {
-        $("#next").prop("disabled", false);
-    }
-    if (currentSlide.previous) {
-
-    }
-}
-
 function nextSlide() {
-    currentSlide.viewed = true;
     if (currentSlide.next) {
+        // currentSlide.off();
         currentSlide.next.render();
-    } else {
-        $("#next").prop("disabled", true);
     }
 }
 
 function prevSlide() {
     if (currentSlide.previous) {
-        $("#back").prop("disabled", false);
+        // $("#back").prop("disabled", false);
         currentSlide.previous.render();
-    } else {
-        $("#back").prop("disabled", true);
     }
 }
 
@@ -288,14 +291,18 @@ $(document).ready(function() {
 
         // config data
         var config = JSON.parse(JSON.stringify(result));
-
+        
         // set html tags
         $("title").html(config.courseID);
         $("#course-title").html(config.courseTitle);
 
         var main = config.mainSequence;
         var mainSequence = new Sequence(main.title, main.items);
+
+        console.log(mainSequence.items);
+        console.log(mainSequence.items);
         currentSlide = mainSequence.items[0];
+
         currentSlide.render();
     });
 

@@ -12,6 +12,7 @@
 }
 body {
     background-color: var(--nsc-grey, grey);
+    overflow-x: hidden;
 }
 body, button, input {
     font-family: "Nunito";
@@ -111,6 +112,8 @@ button:hover, input:hover, .link:hover, .menu-item:hover {
     height: 100%;
     border-radius: 10px;
     background-color: var(--nsc-almostwhite, white);
+    margin-left: 300px;
+    opacity: 0;
 }
 .slide-banner, .menu-banner {
     display: flex;
