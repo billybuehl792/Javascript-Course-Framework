@@ -166,7 +166,7 @@ class Slide extends Item {
             $(".slide").animate({
                 opacity: "1",
                 marginLeft: "0px"
-            }, 150, "swing");
+            }, 250, "swing");
         });
 
         $("#page-number").html(this.slideNum + 1);
@@ -229,17 +229,19 @@ class Menu extends Slide {
     
                 menuItemIcon.src = "img/icon_menuitem.png";
                 menuItemIcon.alt = "menu-item-icon";
-    
+                
                 menuText.className = "menu-text";
                 menuText.innerHTML = items[i].title;
     
                 menuTextBox.appendChild(menuText);
                 iconContainer.appendChild(menuItemIcon);
+
+                menuItem.id = items[i].id;
                 menuItem.appendChild(menuTextBox);
                 menuItem.appendChild(iconContainer);
                 slideMenu.appendChild(menuItem);
             }
-    
+
             slideMenu.className = "menu";
             return slideMenu;
         }
@@ -265,7 +267,7 @@ class ExternalLink extends Item {
 function nextSlide() {
     if (currentSlide.next) {
         $(".slide").animate({
-            marginLeft: "-200px",
+            marginLeft: "-150px",
             opacity: "0"
         }, 200, "swing", function() {
             currentSlide.next.render();
@@ -276,7 +278,7 @@ function nextSlide() {
 function prevSlide() {
     if (currentSlide.previous) {
         $(".slide").animate({
-            marginLeft: "200px",
+            marginLeft: "150px",
             opacity: "0"
         }, 200, "swing", function() {
             currentSlide.previous.render();
@@ -302,7 +304,6 @@ $(document).ready(function() {
         var mainSequence = new Sequence(main.title, main.items);
         console.log(mainSequence);
         currentSlide = mainSequence.items[0];
-
         currentSlide.render();
     });
 
