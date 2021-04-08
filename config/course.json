@@ -33,12 +33,37 @@
                 "items": [
                     {
                         "type": "external-link",
-                        "title": "link to google!",
-                        "link": ["www.google.com", "tab"]
+                        "title": "Instructional Strategy Module",
+                        "link": "https://www.google.com/"
+                    },
+                    {
+                        "type": "external-link",
+                        "title": "Instructional Strategy Module",
+                        "link": "https://www.google.com/"
+                    },
+                    {
+                        "type": "external-link",
+                        "title": "Instructional Strategy Module",
+                        "link": "https://www.google.com/"
+                    },
+                    {
+                        "type": "external-link",
+                        "title": "Instructional Strategy Module",
+                        "link": "https://www.google.com/"
+                    },
+                    {
+                        "type": "external-link",
+                        "title": "Instructional Strategy Module",
+                        "link": "https://www.google.com/"
+                    },
+                    {
+                        "type": "external-link",
+                        "title": "Instructional Strategy Module",
+                        "link": "https://www.google.com/"
                     },
                     {
                         "type": "sequence",
-                        "title": "blah sequence",
+                        "title": "Learning as a Learner",
                         "items": [
                             {
                                 "type": "slide",
@@ -58,7 +83,7 @@
                     },
                     {
                         "type": "sequence",
-                        "title": "summary",
+                        "title": "Summary",
                         "items": [
                             {
                                 "type": "slide",

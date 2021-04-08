@@ -2,14 +2,15 @@
 
 var currentSlide;
 
-// Sequence, Slide, Menu, Link, etc.
 class Item {
+    // Sequence, Slide, Menu, Link, etc.
     constructor(_title) {
         this.title = _title;
         this.id = this.genID();
     }
 
     genID() {
+        // create unique id for items
         var S4 = function() {
             return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
         };
@@ -18,8 +19,9 @@ class Item {
 
 }
 
-// Sequence of slides and menus
 class Sequence extends Item {
+    // Sequence of Slides and Menus
+    // Item of: Root or Menu
     constructor(_title, _itemConfig, _parent=null, _previous=null, _next=null) {
         super(_title);
         this.type = "sequence";
@@ -27,10 +29,12 @@ class Sequence extends Item {
         this.parent = _parent;
         this.previous = _previous;
         this.next = _next;
+        this.items = [];
+        this.addItems();
     }
 
-    get items() {
-        var items = [];                         // menus or slides in sequence
+    addItems() {
+        // adds items from items config to this.items[]
         var previous = null;                    // previous item in sequence (null if first)
 
         for (let i=0; i<this.itemConfig.length; i++) {
@@ -44,21 +48,28 @@ class Sequence extends Item {
             
             item.previous = previous;           // set item's previous to previous
             previous = item;                    // set previous to current item
-            if (items.length > 0) {             // set previous item's next = current item
-                items[i-1].next = item;
+            if (this.items.length > 0) {        // set previous item's next = current item
+                this.items[i-1].next = item;
             }
-            items.push(item);                   // push item to array
+            this.items.push(item);              // push item to array
         }
         
-        items[0].previous = this.previous;      // set first item previous = sequence previous
-        items[items.length-1].next = this.next; // set last item next = sequence next
-
-        return items;
+        this.items[0].previous = this.previous;      // set first item previous = sequence previous
+        this.items[this.items.length-1].next = this.next; // set last item next = sequence next        
     }
+
+    render() {
+        // renders sequence's first item
+        if (this.items.length > 0) {
+            this.items[0].render();
+        }
+    }
+
 }
 
-// Content Slide
 class Slide extends Item {
+    // Generic ol' Content Slide
+    // Item of: Sequence
     constructor(_title, _options, _slideNum, _parent, _previous=null, _next=null) {
         super(_title);
         this.type = "slide";
@@ -176,16 +187,18 @@ class Slide extends Item {
 
 }
 
-// Menu slide connecting sequences and links
 class Menu extends Slide {
-    constructor(_title, _options, _slideNum, _parent, _itemConfig, _previous, _next) {
+    // Menu slide connecting sequences and links
+    // Item of: Sequence or Menu
+    constructor(_title, _options, _slideNum, _parent=null, _itemConfig, _previous=null, _next=null) {
         super(_title, _options, _slideNum, _parent, _previous, _next);
         this.type = "menu";
         this.itemConfig = _itemConfig;
+        this.items = [];
+        this.addItems();
     }
 
-    get items() {
-        var items = [];
+    addItems() {
         for (var i=0; i<this.itemConfig.length; i++) {
             var itemConf = this.itemConfig[i];
             var item;
@@ -196,9 +209,8 @@ class Menu extends Slide {
             }
 
             // add item to items array
-            items.push(item);
+            this.items.push(item);
         }
-        return items
     }
 
     get slideContentHTML() {
@@ -229,13 +241,16 @@ class Menu extends Slide {
     
                 menuItemIcon.src = "img/icon_menuitem.png";
                 menuItemIcon.alt = "menu-item-icon";
-                
+
                 menuText.className = "menu-text";
                 menuText.innerHTML = items[i].title;
     
                 menuTextBox.appendChild(menuText);
                 iconContainer.appendChild(menuItemIcon);
 
+                menuItem.onclick = function() {
+                    items[i].render();
+                }
                 menuItem.id = items[i].id;
                 menuItem.appendChild(menuTextBox);
                 menuItem.appendChild(iconContainer);
@@ -254,17 +269,24 @@ class Menu extends Slide {
 
 }
 
-// Menu item linking to external doc/ page
 class ExternalLink extends Item {
+    // Item linking to external doc/ page
+    // Item of: Menu
     constructor(_title, _link) {
         super(_title);
         this.link = _link;
         this.viewed = false;
     }
+
+    render() {
+        window.open(this.link);
+        this.viewed = true;
+    }
 }
 
 
 function nextSlide() {
+    // onclick "#next" > slide current slide left and next on
     if (currentSlide.next) {
         $(".slide").animate({
             marginLeft: "-150px",
@@ -276,6 +298,7 @@ function nextSlide() {
 }
 
 function prevSlide() {
+    // onclick "#back" > slide current slide right and next on
     if (currentSlide.previous) {
         $(".slide").animate({
             marginLeft: "150px",
@@ -302,12 +325,12 @@ $(document).ready(function() {
 
         var main = config.mainSequence;
         var mainSequence = new Sequence(main.title, main.items);
-        console.log(mainSequence);
-        currentSlide = mainSequence.items[0];
-        currentSlide.render();
+        mainSequence.render();
     });
 
     $("#next").click(nextSlide);
     $("#back").click(prevSlide);
-
+    $(".menu-item").click(function() {
+        console.log("menu item clicked");
+    });
 });

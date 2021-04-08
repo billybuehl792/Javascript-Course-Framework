@@ -164,11 +164,13 @@ button:hover, input:hover, .link:hover, .menu-item:hover {
 /* SLIDE MENU */
 .menu {
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
 }
 .menu-item {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     margin: 5px;
     border-radius: 10px;
     background-color: var(--nsc-lightblue, blue);
