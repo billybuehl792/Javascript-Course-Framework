@@ -1,30 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-    --nsc-blue: #0d6972;
-    --nsc-lightblue: #15c2d2;
-    --nsc-darkblue: #152335;
-    --nsc-almostwhite: #fdfdfd;
-    --nsc-grey: #e6eaeb;
-    --nsc-darkgrey: #8f989d;
-    --nsc-navy: #1d2124;
-    --nsc-green: #9ac68b;
+    --light-blue: #337ab7;
+    --dark-blue: #254061;
+    --white: #fdfdfd;
+    --grey: #eee;
+    --dark-grey: #ccc;
+    --black: #111;
 }
 body {
-    background-color: var(--nsc-grey, grey);
+    background-color: var(--grey);
     overflow-x: hidden;
 }
 body, button, input {
     font-family: "Nunito";
 }
-button:hover, input:hover, .link:hover, .menu-item:hover {
+input:hover, button:hover, .link:hover, .menu-item:hover {
     filter: brightness(1.1);
     transition: .2s ease;
     cursor: pointer;
 }
 input[disabled], input[disabled]:hover {
-    background-color: rgb(202, 202, 202);
-    cursor:unset;
+    filter: brightness(1);
+    transition: .2s ease;
+    background-color: var(--dark-grey);
+    cursor: unset;
 }
 
 /* Banner */
@@ -33,9 +33,9 @@ input[disabled], input[disabled]:hover {
     z-index: 3;             /* Top elem on page*/
     width: 100%;            /* Banner full-screen width */
     height: 80px;           /* Banner height 80px */
-    border-bottom: 2px solid var(--nsc-grey, grey);
-    background-color: var(--nsc-blue, blue);
-    color: var(--nsc-almostwhite)
+    border-bottom: 2px solid var(--grey);
+    background-color: var(--dark-blue);
+    color: var(--white)
 }
 .banner-container {
     width: 100%;
@@ -75,8 +75,8 @@ input[disabled], input[disabled]:hover {
     margin: 0 auto;             /* center horizontally */
     padding: 10px;              /* interior container padding */
     border-radius: 10px;        /* rounded edges of container */
-    background-color: var(--nsc-almostwhite, white);
-    background-color: var(--nsc-darkgrey, grey);
+    background-color: var(--white);
+    background-color: var(--dark-grey);
 }
 
 /* CONTROL */
@@ -91,18 +91,17 @@ input[disabled], input[disabled]:hover {
     flex-direction: row;
 }
 .control-button {
-    color: var(--nsc-almostwhite, white);
     border-radius: 5px;
     border-style: none;
-    background-color: var(--nsc-blue, blue);
     padding: 10px 30px;
     margin: 5px;
-    cursor: pointer;
+    color: var(--white);
+    background-color: var(--light-blue);
 }
 .link {
-    background-color: var(--nsc-blue, blue);
     margin: 5px;
     border-radius: 10px;
+    background-color: var(--light-blue);
 }
 .link img {
     display: block;
@@ -116,7 +115,7 @@ input[disabled], input[disabled]:hover {
     height: 100%;
     min-height: 500px;
     border-radius: 10px;
-    background-color: var(--nsc-almostwhite, white);
+    background-color: var(--white);
     opacity: 0;
 }
 .slide-banner, .menu-banner {
@@ -124,11 +123,8 @@ input[disabled], input[disabled]:hover {
     align-items: center;
     font-size: 20px;
     border-radius: 10px 10px 0px 0px;
-    color: var(--nsc-almostwhite, white);
-    background-color: var(--nsc-blue, blue);
-}
-.menu-banner {
-    background-color: var(--nsc-darkgrey, blue);
+    color: var(--white);
+    background-color: var(--light-blue);
 }
 .slide-status {
     display: flex;
@@ -138,13 +134,13 @@ input[disabled], input[disabled]:hover {
     height: 50px;
     width: 50px;
     border-radius: 50px;
-    background-color: var(--nsc-darkblue, blue);
+    background-color: var(--dark-blue);
 }
 
 /* SLIDE CONTENT */
 .slide-content {
     padding: 15px;
-    color: var(--nsc-navy, black);
+    color: var(--black);
 }
 .slide-header {
     font-size: 30px;
@@ -177,10 +173,10 @@ input[disabled], input[disabled]:hover {
     height: 250px;
     margin: 5px;
     border-radius: 10px;
-    background-color: var(--nsc-lightblue, blue);
+    background-color: var(--light-blue);
 }
 .menu-sequence {
-    background-color: var(--nsc-darkgrey, grey);
+    background-color: var(--dark-grey);
 }
 .menu-text {
     font-size: 20px;
@@ -189,4 +185,7 @@ input[disabled], input[disabled]:hover {
 }
 .complete {
     filter: brightness(.7);
+}
+.complete:hover {
+    filter: brightness(.8);
 }

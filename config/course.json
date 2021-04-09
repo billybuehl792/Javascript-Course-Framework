@@ -21,9 +21,20 @@
                 "options": {
                     "header1": "In this course you'll learn all sorts of great stuff.",
                     "list": [
-                        "blah",
-                        "ascas",
-                        "ok"
+                        "strategy",
+                        "education"
+                    ]  
+                }
+            },
+            {
+                "type": "slide",
+                "title": "Objectives",
+                "options": {
+                    "header1": "This course has several objectives",
+                    "list": [
+                        "learn",
+                        "educate",
+                        "consume knowledge"
                     ]  
                 }
             },
@@ -34,11 +45,6 @@
                     {
                         "type": "external-link",
                         "title": "Must Watch Important Module",
-                        "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                    },
-                    {
-                        "type": "external-link",
-                        "title": "Important Module",
                         "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                     },
                     {
