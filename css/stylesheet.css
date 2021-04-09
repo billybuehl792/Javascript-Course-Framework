@@ -18,9 +18,13 @@ body, button, input {
     font-family: "Nunito";
 }
 button:hover, input:hover, .link:hover, .menu-item:hover {
-    filter: brightness(1.2);
+    filter: brightness(1.1);
     transition: .2s ease;
     cursor: pointer;
+}
+input[disabled], input[disabled]:hover {
+    background-color: rgb(202, 202, 202);
+    cursor:unset;
 }
 
 /* Banner */
@@ -182,4 +186,7 @@ button:hover, input:hover, .link:hover, .menu-item:hover {
     font-size: 20px;
     font-weight: 600;
     margin: 15px;
+}
+.complete {
+    filter: brightness(.7);
 }

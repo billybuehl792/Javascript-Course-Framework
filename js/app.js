@@ -1,12 +1,21 @@
 // app.js - course web framework
 
 var currentSlide;
+var mainSequence;
 
 class Item {
     // Sequence, Slide, Menu, Link, etc.
     constructor(_title) {
         this.title = _title;
         this.id = this.genID();
+    }
+
+    checkComplete() {
+        if (mainSequence.complete) {
+            console.log("course complete!")
+        } else {
+            console.log("incomplete")
+        }
     }
 
     genID() {
@@ -33,6 +42,16 @@ class Sequence extends Item {
         this.addItems();
     }
 
+    get complete() {
+        // return true if all items of sequence are complete
+        for (var i=0;i<this.items.length;i++) {
+            if (!this.items[i].complete) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     addItems() {
         // adds items from items config to this.items[]
         var previous = null;                    // previous item in sequence (null if first)
@@ -41,9 +60,9 @@ class Sequence extends Item {
             var itemConf = this.itemConfig[i];
             var item;
             if (itemConf.type === "slide") {
-                item = new Slide(itemConf.title, itemConf.options, i, this);
+                item = new Slide(itemConf.title, itemConf.options || null, i, this);
             } else if (itemConf.type === "menu") {
-                item = new Menu(itemConf.title, itemConf.options, i, this, itemConf.items);
+                item = new Menu(itemConf.title, itemConf.options || null, i, this, itemConf.items);
             }
             
             item.previous = previous;           // set item's previous to previous
@@ -63,6 +82,7 @@ class Sequence extends Item {
         if (this.items.length > 0) {
             this.items[0].render();
         }
+        this.checkComplete();
     }
 
 }
@@ -78,7 +98,11 @@ class Slide extends Item {
         this.next = _next;
         this.slideNum = _slideNum;
         this.parent = _parent;
-        this.viewed = false;
+        this.visited = false;
+    }
+
+    get complete() {
+        return this.visited;
     }
     
     get slideContentHTML() {
@@ -127,7 +151,7 @@ class Slide extends Item {
 
     get slideHTML() {
 
-        function mkBanner(title, slideNum, viewed) {
+        function mkBanner(title, slideNum, complete) {
             var banner = document.createElement("div");
             var statusBox = document.createElement("div");
             var container = document.createElement("div");
@@ -140,7 +164,7 @@ class Slide extends Item {
             statusBox.className = "slide-status";       // statusBox class name
             titleBox.className = "slide-title";         // titleBox class name
             slideTitle.innerHTML = title;               // set slide's title  
-            if (viewed) {                               // if slide visited, render checkmark
+            if (complete) {                             // if slide visited, render checkmark
                 status = document.createElement("img");
                 status.src = "img/check-white_1.png";
                 status.alt = "checkmark";
@@ -158,7 +182,7 @@ class Slide extends Item {
         }
 
         var slideHTML = document.createElement("div");
-        var banner = mkBanner(this.title, this.slideNum, this.viewed)
+        var banner = mkBanner(this.title, this.slideNum, this.complete)
 
         slideHTML.id = this.id;
         slideHTML.className = "slide";
@@ -169,10 +193,33 @@ class Slide extends Item {
         return slideHTML;
     }
 
+    setButtons() {
+        // disable next button
+        if (this.next) {
+            $("#next").prop("disabled", false);
+        } else {
+            $("#next").prop("disabled", true);
+        }
+
+        // disable back button
+        if (currentSlide.previous) {
+            $("#back").prop("disabled", false);
+        } else {
+            $("#back").prop("disabled", true);
+        }
+    }
+
+    setPageNumbers() {
+        // set page numbers
+        $("#page-number").html(this.slideNum + 1);
+        $("#total-pages").html(this.parent.items.length);
+    }
+
     render() {
         currentSlide = this;
         var slideHTML = this.slideHTML;
 
+        // swap slide-container HTML
         $("#slide-container").html(slideHTML).promise().done(function() {
             $(".slide").animate({
                 opacity: "1",
@@ -180,9 +227,12 @@ class Slide extends Item {
             }, 250, "swing");
         });
 
-        $("#page-number").html(this.slideNum + 1);
-        $("#total-pages").html(this.parent.items.length);
-        this.viewed = true;
+        // set buttons and page numbers
+        this.setButtons();
+        this.setPageNumbers();
+
+        this.visited = true;
+        this.checkComplete();
     }
 
 }
@@ -198,19 +248,14 @@ class Menu extends Slide {
         this.addItems();
     }
 
-    addItems() {
-        for (var i=0; i<this.itemConfig.length; i++) {
-            var itemConf = this.itemConfig[i];
-            var item;
-            if (itemConf.type === "sequence") {
-                item = new Sequence(itemConf.title, itemConf.items, this, this, this);
-            } else if (itemConf.type === "external-link") {
-                item = new ExternalLink(itemConf.title, itemConf.link);
+    get complete() {
+        // return true if all items in menu are complete
+        for (var i=0;i<this.items.length;i++) {
+            if (!this.items[i].complete) {
+                return false
             }
-
-            // add item to items array
-            this.items.push(item);
         }
+        return true;
     }
 
     get slideContentHTML() {
@@ -248,6 +293,9 @@ class Menu extends Slide {
                 menuTextBox.appendChild(menuText);
                 iconContainer.appendChild(menuItemIcon);
 
+                if (items[i].complete) {
+                    menuItem.classList.add("complete");
+                }
                 menuItem.onclick = function() {
                     items[i].render();
                 }
@@ -267,6 +315,21 @@ class Menu extends Slide {
         return slideContent;
     }
 
+    addItems() {
+        for (var i=0; i<this.itemConfig.length; i++) {
+            var itemConf = this.itemConfig[i];
+            var item;
+            if (itemConf.type === "sequence") {
+                item = new Sequence(itemConf.title, itemConf.items, this, this, this);
+            } else if (itemConf.type === "external-link") {
+                item = new ExternalLink(itemConf.title, itemConf.link);
+            }
+
+            // add item to items array
+            this.items.push(item);
+        }
+    }
+
 }
 
 class ExternalLink extends Item {
@@ -275,15 +338,15 @@ class ExternalLink extends Item {
     constructor(_title, _link) {
         super(_title);
         this.link = _link;
-        this.viewed = false;
+        this.complete = false;
     }
 
     render() {
         window.open(this.link);
-        this.viewed = true;
+        this.complete = true;
+        currentSlide.render();
     }
 }
-
 
 function nextSlide() {
     // onclick "#next" > slide current slide left and next on
@@ -309,6 +372,7 @@ function prevSlide() {
     }
 }
 
+
 $(document).ready(function() {
 
     var configFile = "config/course.json";
@@ -324,13 +388,10 @@ $(document).ready(function() {
         $("#course-title").html(config.courseTitle);
 
         var main = config.mainSequence;
-        var mainSequence = new Sequence(main.title, main.items);
+        mainSequence = new Sequence(main.title, main.items);
         mainSequence.render();
     });
 
     $("#next").click(nextSlide);
     $("#back").click(prevSlide);
-    $(".menu-item").click(function() {
-        console.log("menu item clicked");
-    });
 });

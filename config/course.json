@@ -33,33 +33,13 @@
                 "items": [
                     {
                         "type": "external-link",
-                        "title": "Instructional Strategy Module",
-                        "link": "https://www.google.com/"
+                        "title": "Must Watch Important Module",
+                        "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                     },
                     {
                         "type": "external-link",
-                        "title": "Instructional Strategy Module",
-                        "link": "https://www.google.com/"
-                    },
-                    {
-                        "type": "external-link",
-                        "title": "Instructional Strategy Module",
-                        "link": "https://www.google.com/"
-                    },
-                    {
-                        "type": "external-link",
-                        "title": "Instructional Strategy Module",
-                        "link": "https://www.google.com/"
-                    },
-                    {
-                        "type": "external-link",
-                        "title": "Instructional Strategy Module",
-                        "link": "https://www.google.com/"
-                    },
-                    {
-                        "type": "external-link",
-                        "title": "Instructional Strategy Module",
-                        "link": "https://www.google.com/"
+                        "title": "Important Module",
+                        "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                     },
                     {
                         "type": "sequence",
@@ -67,10 +47,7 @@
                         "items": [
                             {
                                 "type": "slide",
-                                "title": "hello blah",
-                                "options": {
-                                    "header": "blah blah"
-                                }
+                                "title": "hello blah"
                             },
                             {
                                 "type": "slide",
