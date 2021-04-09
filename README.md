@@ -25,12 +25,14 @@ Creating a course is super easy. The `configTemplate.json` file can be used, or 
 
 ### Config Setup
 Specify the general keys
-    {
-        "courseTitle": "COURSE-TITLE",
-        "courseID": "COURSE-ID",
-        "studyGuidePDF": "COURSE-STUDYGUIDE",
-	    "studyGuidePrint": "COURSE-PRINTDOC",
-        "mainSequence": [
-            ...
-        ]
-    }
+```
+{
+    "courseTitle": "COURSE-TITLE",
+    "courseID": "COURSE-ID",
+    "studyGuidePDF": "COURSE-STUDYGUIDE",
+    "studyGuidePrint": "COURSE-PRINTDOC",
+    "mainSequence": [
+        ...
+    ]
+}
+```
