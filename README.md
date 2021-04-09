@@ -45,11 +45,18 @@ Content Slide:
     "type": "slide",
     "title": "Hello This is a Content Slide",
     "options": {
-        "header": "This is a Content Slide"
-
+        "header": "Cool Bands",
+        "header1": "Here is a list of cool bands I like:",
+        "list": [
+            "Suburban Lawns",
+            "Anons",
+            "Kino",
+            "Broadcast",
+            "Bauhaus"
+        ] 
     }
 }
 ```
 
 This will render: 
-[[https://github.com/billybuehl792/NSC-Course-Framework/blob/master/media/contentExample.jpg]]
+![Content Slide Example](./media/contentExample.jpg?raw=true "Content Example")
