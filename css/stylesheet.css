@@ -173,19 +173,23 @@ input[disabled], input[disabled]:hover {
     height: 250px;
     margin: 5px;
     border-radius: 10px;
+    color: var(--white);
+    background-color: var(--light-blue);
+}
+.menu-text {
+    font-size: 20px;
+    font-weight: 600;
+    padding: 15px;
+    border-radius: 10px 10px 0px 0px;
     background-color: var(--light-blue);
 }
 .menu-sequence {
     background-color: var(--dark-grey);
 }
-.menu-text {
-    font-size: 20px;
-    font-weight: 600;
-    margin: 15px;
-}
+
 .complete {
-    filter: brightness(.7);
+    filter: brightness(.8);
 }
 .complete:hover {
-    filter: brightness(.8);
+    filter: brightness(.9);
 }

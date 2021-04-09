@@ -2,20 +2,14 @@
 
 var currentSlide;
 var mainSequence;
+var courseItems = [];
 
 class Item {
     // Sequence, Slide, Menu, Link, etc.
     constructor(_title) {
         this.title = _title;
         this.id = this.genID();
-    }
-
-    checkComplete() {
-        if (mainSequence.complete) {
-            console.log("course complete!")
-        } else {
-            console.log("incomplete")
-        }
+        this.addCourseItem();
     }
 
     genID() {
@@ -24,6 +18,18 @@ class Item {
             return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
         };
         return ("s"+S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    }
+
+    addCourseItem() {
+        courseItems.push(this);
+    }
+
+    checkComplete() {
+        if (mainSequence.complete) {
+            console.log("course complete!")
+        } else {
+            console.log("incomplete")
+        }
     }
 
 }
@@ -239,7 +245,7 @@ class Slide extends Item {
 
 class Menu extends Slide {
     // Menu slide connecting sequences and links
-    // Item of: Sequence or Menu
+    // Item of: Sequence
     constructor(_title, _options, _slideNum, _parent=null, _itemConfig, _previous=null, _next=null) {
         super(_title, _options, _slideNum, _parent, _previous, _next);
         this.type = "menu";
@@ -287,7 +293,7 @@ class Menu extends Slide {
                 menuItemIcon.src = "img/icon_menuitem.png";
                 menuItemIcon.alt = "menu-item-icon";
 
-                menuText.className = "menu-text";
+                menuTextBox.className = "menu-text";
                 menuText.innerHTML = items[i].title;
     
                 menuTextBox.appendChild(menuText);
@@ -323,6 +329,9 @@ class Menu extends Slide {
                 item = new Sequence(itemConf.title, itemConf.items, this, this, this);
             } else if (itemConf.type === "external-link") {
                 item = new ExternalLink(itemConf.title, itemConf.link);
+            } else {
+                alert("course config error!");
+                throw new Error();
             }
 
             // add item to items array
@@ -352,7 +361,7 @@ function nextSlide() {
     // onclick "#next" > slide current slide left and next on
     if (currentSlide.next) {
         $(".slide").animate({
-            marginLeft: "-150px",
+            marginLeft: "-200px",
             opacity: "0"
         }, 200, "swing", function() {
             currentSlide.next.render();
@@ -364,7 +373,7 @@ function prevSlide() {
     // onclick "#back" > slide current slide right and next on
     if (currentSlide.previous) {
         $(".slide").animate({
-            marginLeft: "150px",
+            marginLeft: "200px",
             opacity: "0"
         }, 200, "swing", function() {
             currentSlide.previous.render();
@@ -394,4 +403,6 @@ $(document).ready(function() {
 
     $("#next").click(nextSlide);
     $("#back").click(prevSlide);
+
+    console.log(courseItems);
 });

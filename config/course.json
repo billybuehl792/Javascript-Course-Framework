@@ -66,6 +66,23 @@
                     },
                     {
                         "type": "sequence",
+                        "title": "demo sequence",
+                        "items": [
+                            {
+                                "type": "menu",
+                                "title": "submenu",
+                                "items": [
+                                    {
+                                        "type": "external-link",
+                                        "title": "Must Watch Important Module",
+                                        "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "sequence",
                         "title": "Summary",
                         "items": [
                             {
