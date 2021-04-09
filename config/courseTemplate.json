@@ -1,0 +1,56 @@
+{
+    "courseTitle": "COURSE-TITLE",
+    "courseID": "COURSE-ID",
+    "studyGuidePDF": "COURSE-STUDYGUIDE",
+	"studyGuidePrint": "COURSE-PRINTDOC",
+    "mainSequence": {
+        "type": "sequence",
+        "title": "mainSequence",
+        "items": [
+            {
+                "type": "slide",
+                "title": "BANNER-TEXT",
+                "options": {
+                    "header": "HEADER-TEXT",
+                    "header1": "HEADER1-TEXT",
+                    "list": [
+                        "LIST-ITEM1"
+                    ] 
+                }
+            },
+            {
+                "type": "menu",
+                "title": "BANNER-TEXT",
+                "items": [
+                    {
+                        "type": "external-link",
+                        "title": "LINK-TITLE",
+                        "link": "HYPERLINK"
+                    },
+                    {
+                        "type": "sequence",
+                        "title": "SEQUENCE-TITLE",
+                        "items": []
+                    },
+                    {
+                        "type": "sequence",
+                        "title": "Summary",
+                        "items": [
+                            {
+                                "type": "slide",
+                                "title": "BANNER-TEXT",
+                                "options": {
+                                    "header": "HEADER-TEXT",
+                                    "header1": "HEADER1-TEXT",
+                                    "list": [
+                                        "LIST-ITEM1"
+                                    ] 
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
