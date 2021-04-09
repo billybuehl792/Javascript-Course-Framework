@@ -9,6 +9,21 @@
         "items": [
             {
                 "type": "slide",
+                "title": "Hello This is a Content Slide",
+                "options": {
+                    "header": "Cool Bands",
+                    "header1": "Here is a list of cool bands I like:",
+                    "list": [
+                        "Suburban Lawns",
+                        "Anons",
+                        "Kino",
+                        "Broadcast",
+                        "Bauhaus"
+                    ] 
+                }
+            },
+            {
+                "type": "slide",
                 "title": "Introduction",
                 "options": {
                     "header": "Strategic Reasons for Thinking Strategically",
@@ -38,6 +53,7 @@
                     ]  
                 }
             },
+
             {
                 "type": "menu",
                 "title": "Main Menu",

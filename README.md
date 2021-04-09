@@ -4,18 +4,18 @@ This framework is used to generate HTML5 courses for the NASA Safety Center. The
 
 ## Terminology
 ### Items
-#### General
+##### General
 - **Sequence**: Array of Slides and Menus.
 - **Slide**: Basic onscreen element of the course. A Slide can be content slide, menu, knowledge check, or course complete. 
 
-#### Slides
+##### Slides
 - **Content Slide**: Sequence Item. Slide with text.
 - **Custom Slide**: Sequence Item. Renders custom HTML from HTML file.
 - **Menu Slide**: Sequence Item. Collection of Sequences and External links.
 - **Knowledge Check Slide**: Sequence Item. Slide with questions and selectable answers.
 - **Course Complete**: Sequence Item. Displays when user has completed course.
 
-### External
+##### External
 - **External Links**: Menu Item. Opens link to webpage.
 - **External Video**: Menu Item. Opens video.
 
@@ -36,3 +36,20 @@ Specify the general keys
     ]
 }
 ```
+### Add Items to Main Sequence
+Only Slides and Menus can be added to the `mainSequence`, **not** other Sequences \(that wouldn't make much sense anyways!\).
+
+Content Slide:
+```
+{
+    "type": "slide",
+    "title": "Hello This is a Content Slide",
+    "options": {
+        "header": "This is a Content Slide"
+
+    }
+}
+```
+
+This will render: 
+[[https://github.com/billybuehl792/NSC-Course-Framework/blob/master/media/contentExample.jpg]]
