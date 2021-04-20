@@ -5,8 +5,8 @@ This framework is used to generate HTML5 courses for the NASA Safety Center. The
 ## Terminology
 ### Items
 ##### General
-- **Sequence**: Array of Slides and Menus.
-- **Slide**: Basic onscreen element of the course. A Slide can be content slide, menu, knowledge check, or course complete. 
+- **Sequence**: Item of Menu Slide or Main Sequence. Array of Slides and Menus.
+- **Slide**: Item of Sequence. Basic onscreen element of the course. A Slide can be content slide, menu, knowledge check, or course complete. 
 
 ##### Slides
 - **Content Slide**: Sequence Item. Slide with text.

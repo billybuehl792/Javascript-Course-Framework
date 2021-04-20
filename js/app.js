@@ -69,8 +69,9 @@ class Sequence extends Item {
                 item = new Slide(itemConf.title, itemConf.options || null, i, this);
             } else if (itemConf.type === "menu") {
                 item = new Menu(itemConf.title, itemConf.options || null, i, this, itemConf.items);
+            } else if (itemConf.type === "custom-slide") {
+                item = new CustomSlide(itemConf.title, itemConf.options || null, i, this);
             }
-            
             item.previous = previous;           // set item's previous to previous
             previous = item;                    // set previous to current item
             if (this.items.length > 0) {        // set previous item's next = current item
@@ -155,45 +156,43 @@ class Slide extends Item {
         return slideContent
     }
 
-    get slideHTML() {
+    get slideBannerHTML() {
+        var banner = document.createElement("div");
+        var statusBox = document.createElement("div");
+        var container = document.createElement("div");
+        var titleBox = document.createElement("div");
+        var slideTitle = document.createElement("h1");
+        var status;
 
-        function mkBanner(title, slideNum, complete) {
-            var banner = document.createElement("div");
-            var statusBox = document.createElement("div");
-            var container = document.createElement("div");
-            var titleBox = document.createElement("div");
-            var slideTitle = document.createElement("h1");
-            var status;
-    
-            container.className = "container";
-            banner.className = "slide-banner";          // banner class name
-            statusBox.className = "slide-status";       // statusBox class name
-            titleBox.className = "slide-title";         // titleBox class name
-            slideTitle.innerHTML = title;               // set slide's title  
-            if (complete) {                             // if slide visited, render checkmark
-                status = document.createElement("img");
-                status.src = "img/check-white_1.png";
-                status.alt = "checkmark";
-            } else {                                    // render slide's number in sequence
-                status = document.createElement("h1");
-                status.innerHTML = slideNum + 1;
-            }
-            container.appendChild(status);
-            statusBox.appendChild(container);
-            titleBox.appendChild(slideTitle);
-            banner.appendChild(statusBox);
-            banner.appendChild(titleBox);
-    
-            return banner;
+        container.className = "container";
+        banner.className = "slide-banner";          // banner class name
+        statusBox.className = "slide-status";       // statusBox class name
+        titleBox.className = "slide-title";         // titleBox class name
+        slideTitle.innerHTML = this.title;               // set slide's title  
+        if (this.complete) {                             // if slide visited, render checkmark
+            status = document.createElement("img");
+            status.src = "img/check-white_1.png";
+            status.alt = "checkmark";
+        } else {                                    // render slide's number in sequence
+            status = document.createElement("h1");
+            status.innerHTML = this.slideNum + 1;
         }
+        container.appendChild(status);
+        statusBox.appendChild(container);
+        titleBox.appendChild(slideTitle);
+        banner.appendChild(statusBox);
+        banner.appendChild(titleBox);
 
+        return banner;
+    }
+
+    get slideHTML() {
         var slideHTML = document.createElement("div");
-        var banner = mkBanner(this.title, this.slideNum, this.complete)
 
         slideHTML.id = this.id;
         slideHTML.className = "slide";
         
-        slideHTML.appendChild(banner);
+        slideHTML.appendChild(this.slideBannerHTML);
         slideHTML.appendChild(this.slideContentHTML);
 
         return slideHTML;
@@ -341,6 +340,35 @@ class Menu extends Slide {
 
 }
 
+class CustomSlide extends Slide {
+    // Custom slide loads custom HTML
+    // Item of: Sequence
+    constructor(_title, _options, _slideNum, _parent=null, _previous=null, _next=null) {
+        super(_title, _options, _slideNum, _parent, _previous, _next);
+        this.type = "custom";
+    }
+
+    get slideContentHTML() {
+        var slideContent = super.slideContentHTML;
+
+        var slideCustom = this.options.slideHTML.join('');
+        slideContent.insertAdjacentHTML("beforeend", slideCustom);
+        
+        return slideContent;
+    }
+
+}
+
+class KnowledgeCheckSlide extends Slide {
+    // Knowledge Check slide renders question 
+    // Item of: Sequence
+    constructor(_title, _options, _slideNum, _parent=null, _previous=null, _next=null) {
+        super(_title, _options, _slideNum, _parent, _previous, _next);
+        this.type = "knowledge-check";
+    }
+
+}
+
 class ExternalLink extends Item {
     // Item linking to external doc/ page
     // Item of: Menu
@@ -398,6 +426,7 @@ $(document).ready(function() {
 
         var main = config.mainSequence;
         mainSequence = new Sequence(main.title, main.items);
+        console.log(mainSequence);
         mainSequence.render();
     });
 

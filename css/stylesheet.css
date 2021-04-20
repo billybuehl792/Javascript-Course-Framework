@@ -14,6 +14,7 @@ body {
 }
 body, button, input {
     font-family: "Nunito";
+    font-variant-numeric: lining-nums;
 }
 input:hover, button:hover, .link:hover, .menu-item:hover {
     filter: brightness(1.1);
