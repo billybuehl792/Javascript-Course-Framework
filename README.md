@@ -4,9 +4,10 @@ This framework is used to generate HTML5 courses for the NASA Safety Center. The
 
 ## Terminology
 ### Items
+- **Item**: JS object.
 ##### General
-- **Sequence**: Item of Menu Slide or Main Sequence. Array of Slides and Menus.
-- **Slide**: Item of Sequence. Basic onscreen element of the course. A Slide can be content slide, menu, knowledge check, or course complete. 
+- **Sequence**: Item of Menu Slide. Array of Slides and Menus.
+- **Slide**: Item of Sequence. Basic onscreen element of the course. A Slide can be content Slide, Menu, knowledge check, or course complete. 
 
 ##### Slides
 - **Content Slide**: Sequence Item. Slide with text.
@@ -37,12 +38,12 @@ Specify the general keys
 }
 ```
 ### Add Items to Main Sequence
-Only Slides and Menus can be added to the `mainSequence`, **not** other Sequences \(that wouldn't make much sense anyways!\).
+Only Slides and Menus can be added to the `mainSequence` \(or any other Sequence\), **not** other Sequences \(that wouldn't make much sense anyways!\). 
 
 Content Slide:
 ```
 {
-    "type": "slide",
+    "type": "Slide",
     "title": "Hello This is a Content Slide",
     "options": {
         "header": "Cool Bands",
@@ -60,3 +61,28 @@ Content Slide:
 
 This will render: 
 ![Content Slide Example](./media/contentExample.jpg?raw=true "Content Example")
+
+_n_ Slide objects can be added in a Sequence. Simply append or insert them into the Sequence's `Items` array in the order you want.
+
+#### Add Menu Item to a Sequence
+Menu Items are sort of a hybrid between a Slide and a Sequence. A Menu Item can be rendered to the screen \(unlike a Sequence\), but also contain nested Items \(like a Sequence\). 
+
+Menu Slide:
+```
+{
+    "type": "Menu",
+    "title": "blah blah blah Menu",
+    "Items": [
+        {
+            "type": "external-link",
+            "title": "Must Watch Important Module",
+            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        }
+    ]
+}
+```
+
+This will render: 
+![Menu Slide Example](./media/menuExample.jpg?raw=true "Content Example")
+
+This Menu only has one Item, but _n_ Sequence objects \( 'Items'\) or External-Link objects can be added to a Menu's `items` array.

@@ -21,6 +21,7 @@ class Item {
     }
 
     addCourseItem() {
+        // add item to courseItems array
         courseItems.push(this);
     }
 
@@ -297,7 +298,7 @@ class Menu extends Slide {
                 menuText.innerHTML = items[i].title;
     
                 menuTextBox.appendChild(menuText);
-                iconContainer.appendChild(menuItemIcon);
+                // iconContainer.appendChild(menuItemIcon);
 
                 if (items[i].complete) {
                     menuItem.classList.add("complete");
@@ -386,6 +387,7 @@ class ExternalLink extends Item {
     }
 }
 
+
 function nextSlide() {
     // onclick "#next" > slide current slide left and next on
     if (currentSlide.next) {
@@ -413,6 +415,7 @@ function prevSlide() {
 
 $(document).ready(function() {
 
+    // course config JSON
     var configFile = "config/course.json";
     
     // get JSON config from server
@@ -427,12 +430,11 @@ $(document).ready(function() {
 
         var main = config.mainSequence;
         mainSequence = new Sequence(main.title, main.items);
-        console.log(mainSequence);
         mainSequence.render();
     });
 
+    // next and back buttons
     $("#next").click(nextSlide);
     $("#back").click(prevSlide);
 
-    console.log(courseItems);
 });
