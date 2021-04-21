@@ -26,7 +26,8 @@ class Item {
 
     checkComplete() {
         if (mainSequence.complete) {
-            console.log("course complete!")
+            console.log("course complete!");
+            alert('course is done, get outta here.');
         } else {
             console.log("incomplete")
         }
