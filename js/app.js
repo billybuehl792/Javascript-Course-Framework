@@ -150,6 +150,21 @@ class Slide extends Item {
             return ulHTML;
         }
 
+        function slideParagraph(paragraphs) {
+            // return slide list HTML
+            var div = document.createElement("div");
+            div.className = "paragraph";
+
+            var pHTML;
+            for (let i=0; i<paragraphs.length; i++) {
+                pHTML = document.createElement("p");
+                pHTML.innerHTML = paragraphs[i];
+                div.appendChild(pHTML);
+                div.appendChild(document.createElement("br"));
+            }
+            return div;
+        }
+
         function slideCustom(custom) {
             // return custom HTML
             var customHTML = document.createElement("div");
@@ -173,6 +188,9 @@ class Slide extends Item {
             }
             if (this.options.list) {
                 slideText.appendChild(slideList(this.options.list));
+            }
+            if (this.options.paragraph) {
+                slideText.appendChild(slideParagraph(this.options.paragraph));
             }
             if (this.options.custom) {
                 slideContent.appendChild(slideCustom(this.options.custom));
@@ -264,6 +282,10 @@ class Slide extends Item {
                 // check whether course is complete
                 Item.checkComplete();
             });
+            $(".slide-content").animate({
+                opacity: "1",
+                marginTop: "0px"
+            }, 150, "swing");
         }, () => {
             // set buttons and page numbers
             this.setButtons();
@@ -419,6 +441,7 @@ function prevSlide() {
 }
 
 function genSlide(slideTitle, heading, subHeading) {
+    // retrun dict of basic slide
     var basicSlide = {
         "type": "slide",
         "title": slideTitle,

@@ -4,6 +4,7 @@
     --light-blue: #337ab7;
     --dark-blue: #254061;
     --green: #71bd51;
+    --blue: #2b6394;
     --white: #fdfdfd;
     --grey: #eee;
     --dark-grey: #ccc;
@@ -63,6 +64,7 @@ input[disabled], input[disabled]:hover {
 }
 #course-title {
     font-size: 18px;
+    line-height: 23px;
 }
 
 /* CONTENT */
@@ -143,6 +145,8 @@ input[disabled], input[disabled]:hover {
 .slide-content {
     padding: 15px;
     color: var(--black);
+    margin-top: 50px;
+    opacity: 0;
 }
 .slide-heading {
     font-size: 30px;
@@ -192,7 +196,7 @@ input[disabled], input[disabled]:hover {
     background-color: var(--green);
 }
 .menu-menu {
-    background-color: orange;
+    background-color: var(--blue);
 }
 
 .complete {

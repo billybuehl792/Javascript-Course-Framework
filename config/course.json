@@ -40,8 +40,8 @@
                 "options": {
                     "heading": "test heading",
                     "custom": [
-                        "<div class='test' style='color: blue;'>Hello test</div>",
-                        "<div class='test' style='color: orange;'>test again!</div"
+                        "<div class='test' style='color: blue;'>Hello</div>",
+                        "<div class='test' style='color: orange;'>this text was created with handcrafted HTML!</div"
                     ]
                 }
             },
@@ -74,8 +74,8 @@
                     },
                     {
                         "type": "external-link",
-                        "title": "Must Watch Important Module",
-                        "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                        "title": "Learn JS, it's fun",
+                        "link": "https://www.w3schools.com/js/default.asp"
                     },
                     {
                         "type": "sequence",
@@ -83,13 +83,17 @@
                         "items": [
                             {
                                 "type": "slide",
-                                "title": "hello blah"
+                                "title": "hello blah",
+                                "options": {
+                                    "heading": "Welcome to the hello blah slide"
+                                }
                             },
                             {
                                 "type": "slide",
                                 "title": "alright",
                                 "options": {
-                                    "heading": "thats it!"
+                                    "heading": "thats it!",
+                                    "subheading": "please go"
                                 }
                             }
                         ]
@@ -104,8 +108,8 @@
                                 "items": [
                                     {
                                         "type": "external-link",
-                                        "title": "Must Watch Important Module",
-                                        "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                        "title": "Cool website check it out",
+                                        "link": "http://bbuehl.com/"
                                     }
                                 ]
                             }
@@ -117,10 +121,27 @@
                         "items": [
                             {
                                 "type": "slide",
-                                "title": "Summary Slide",
+                                "title": "Summary",
                                 "options": {
-                                    "heading": "goodbye"
+                                    "subheading": "You should now be able to:",
+                                    "list": [
+                                        "learn",
+                                        "think strategically about thinking",
+                                        "learn strategically learned strategy"
+                                    ]
                                 }
+                            },
+                            {
+                                "type": "slide",
+                                "title": "Questions? Comments?",
+                                "options": {
+                                    "paragraph": [
+                                    "If you've got questions take it up with the boss.",
+                                    "call this number",
+                                    "0123456789"
+                                    ]
+                                }
+
                             },
                             {
                                 "type": "slide",
