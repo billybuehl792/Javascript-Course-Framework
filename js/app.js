@@ -37,8 +37,7 @@ class Item {
 }
 
 class Sequence extends Item {
-    // Sequence of Slides and Menus
-    // Item of: Root or Menu
+    // Sequence of Slides and Menus | Item of: Root or Menu
     constructor(_title, _itemConfig, _parent=null, _previous=null, _next=null) {
         super(_title);
         this.type = "sequence";
@@ -62,28 +61,33 @@ class Sequence extends Item {
 
     addItems() {
         // adds items from items config to this.items[]
-        var previous = null;                    // previous item in sequence (null if first)
+        var previous = null;                                // previous item in sequence (null if first)
 
         for (let i=0; i<this.itemConfig.length; i++) {
             var itemConf = this.itemConfig[i];
             var item;
-            if (itemConf.type === "slide") {
-                item = new Slide(itemConf.title, itemConf.options || null, i, this);
-            } else if (itemConf.type === "menu") {
-                item = new Menu(itemConf.title, itemConf.options || null, i, this, itemConf.items);
-            } else if (itemConf.type === "custom-slide") {
-                item = new CustomSlide(itemConf.title, itemConf.options || null, i, this);
+            switch (itemConf.type) {
+                case "slide":
+                    item = new Slide(itemConf.title, itemConf.options || null, i, this);
+                    break;
+                case "menu":
+                    item = new Menu(itemConf.title, itemConf.options || null, i, this, itemConf.items);
+                    break;
+                default:
+                    alert("Course configuration error!");
+                    throw new Error("Items of 'Sequence' must be either 'slide' or 'menu'");
             }
-            item.previous = previous;           // set item's previous to previous
-            previous = item;                    // set previous to current item
-            if (this.items.length > 0) {        // set previous item's next = current item
+
+            item.previous = previous;                       // set item's previous to previous
+            previous = item;                                // set previous to current item
+            if (this.items.length > 0) {                    // set previous item's next = current item
                 this.items[i-1].next = item;
             }
-            this.items.push(item);              // push item to array
+            this.items.push(item);                          // push item to array
         }
         
-        this.items[0].previous = this.previous;      // set first item previous = sequence previous
-        this.items[this.items.length-1].next = this.next; // set last item next = sequence next        
+        this.items[0].previous = this.previous;             // set first item previous = sequence previous
+        this.items[this.items.length-1].next = this.next;   // set last item next = sequence next        
     }
 
     render() {
@@ -97,8 +101,7 @@ class Sequence extends Item {
 }
 
 class Slide extends Item {
-    // Generic ol' Content Slide
-    // Item of: Sequence
+    // Generic ol' Content Slide | Item of: Sequence
     constructor(_title, _options, _slideNum, _parent, _previous=null, _next=null) {
         super(_title);
         this.type = "slide";
@@ -116,45 +119,69 @@ class Slide extends Item {
     
     get slideContentHTML() {
 
-        function slideTextHTML(options) {
-            var slideText = document.createElement("div");
-            slideText.className = "slide-text";
-            if (options) {
-                if (options.header) {                              // append header
-                    var header = document.createElement("h1");
-                    header.innerHTML = options.header;
-                    header.className = "slide-header";
-                    slideText.appendChild(header);
-                }
-                if (options.header1) {                              // append header1
-                    var header1 = document.createElement("h2");
-                    header1.className = "slide-header1"
-                    header1.innerHTML = options.header1;
-                    slideText.appendChild(header1);
-                }
-                if (options.list) {                                 // append list
-                    var ul = document.createElement("ul");
-                    var li;
-                    ul.className = "slide-list";
-                    for (let i=0; i<options.list.length; i++) {
-                        li = document.createElement("li");
-                        li.className = "slide-list-elem";
-                        li.innerHTML = options.list[i];
-                        ul.appendChild(li);
-                    }
-                    slideText.appendChild(ul);
-                }
+        function slideHeading(heading) {
+            // return slide heading HTML
+            var headingHTML = document.createElement("h1");
+            headingHTML.innerHTML = heading;
+            headingHTML.className = "slide-heading";
+            return headingHTML;
+        }
+
+        function slideSubheading(subheading) {
+            // return slide subheading HTML
+            var subheadingHTML = document.createElement("h2");
+            subheadingHTML.innerHTML = subheading;
+            subheadingHTML.className = "slide-subheading";
+            return subheadingHTML;
+        }
+
+        function slideList(list) {
+            // return slide list HTML
+            var ulHTML = document.createElement("ul");
+            ulHTML.className = "slide-list";
+
+            var liHTML;
+            for (let i=0; i<list.length; i++) {
+                liHTML = document.createElement("li");
+                liHTML.className = "slide-list-elem";
+                liHTML.innerHTML = list[i];
+                ulHTML.appendChild(liHTML);
             }
-    
-            return slideText;
+            return ulHTML;
+        }
+
+        function slideCustom(custom) {
+            // return custom HTML
+            var customHTML = document.createElement("div");
+            customHTML.className = "slide-custom";
+            customHTML.innerHTML = custom.join('');
+            return customHTML;
         }
 
         var slideContent = document.createElement("div");
-        var slideText = slideTextHTML(this.options);
-
+        var slideText = document.createElement("div");
+        slideText.className = "slide-text";
         slideContent.className = "slide-content";
-        slideContent.appendChild(slideText);
-        
+
+        // add slide elements to slideText
+        if (this.options) {
+            if (this.options.heading) {
+                slideText.appendChild(slideHeading(this.options.heading));
+            }
+            if (this.options.subheading) {
+                slideText.appendChild(slideSubheading(this.options.subheading));
+            }
+            if (this.options.list) {
+                slideText.appendChild(slideList(this.options.list));
+            }
+            if (this.options.custom) {
+                slideContent.appendChild(slideCustom(this.options.custom));
+            }
+        }
+
+        // add slideText to slideContent
+        slideContent.insertBefore(slideText, slideContent.childNodes[0]);
+
         return slideContent
     }
 
@@ -245,8 +272,7 @@ class Slide extends Item {
 }
 
 class Menu extends Slide {
-    // Menu slide connecting sequences and links
-    // Item of: Sequence
+    // Menu slide connecting sequences and links | Item of: Sequence
     constructor(_title, _options, _slideNum, _parent=null, _itemConfig, _previous=null, _next=null) {
         super(_title, _options, _slideNum, _parent, _previous, _next);
         this.type = "menu";
@@ -326,13 +352,20 @@ class Menu extends Slide {
         for (var i=0; i<this.itemConfig.length; i++) {
             var itemConf = this.itemConfig[i];
             var item;
-            if (itemConf.type === "sequence") {
-                item = new Sequence(itemConf.title, itemConf.items, this, this, this);
-            } else if (itemConf.type === "external-link") {
-                item = new ExternalLink(itemConf.title, itemConf.link);
-            } else {
-                alert("course config error!");
-                throw new Error();
+            switch (itemConf.type) {
+                case "sequence":
+                    item = new Sequence(itemConf.title, itemConf.items, this, this, this);
+                    break;
+                case "external-link":
+                    item = new ExternalLink(itemConf.title, itemConf.link);
+                    break;
+                case "menu":
+                    console.log(itemConf.type);
+                    item = new Menu(itemConf.title, itemConf.options || null, i, this, itemConf.items, this, this);
+                    break;
+                default:
+                    alert("Course configuration error!");
+                    throw new Error("Items of 'Menu' must be either 'sequence' or 'external-link'");
             }
 
             // add item to items array
@@ -342,40 +375,11 @@ class Menu extends Slide {
 
 }
 
-class CustomSlide extends Slide {
-    // Custom slide loads custom HTML
-    // Item of: Sequence
-    constructor(_title, _options, _slideNum, _parent=null, _previous=null, _next=null) {
-        super(_title, _options, _slideNum, _parent, _previous, _next);
-        this.type = "custom";
-    }
-
-    get slideContentHTML() {
-        var slideContent = super.slideContentHTML;
-
-        var slideCustom = this.options.slideHTML.join('');
-        slideContent.insertAdjacentHTML("beforeend", slideCustom);
-        
-        return slideContent;
-    }
-
-}
-
-class KnowledgeCheckSlide extends Slide {
-    // Knowledge Check slide renders question 
-    // Item of: Sequence
-    constructor(_title, _options, _slideNum, _parent=null, _previous=null, _next=null) {
-        super(_title, _options, _slideNum, _parent, _previous, _next);
-        this.type = "knowledge-check";
-    }
-
-}
-
 class ExternalLink extends Item {
-    // Item linking to external doc/ page
-    // Item of: Menu
+    // Item linking to external doc/ page | Item of: Menu
     constructor(_title, _link) {
         super(_title);
+        this.type = "external-link";
         this.link = _link;
         this.complete = false;
     }
@@ -389,7 +393,7 @@ class ExternalLink extends Item {
 
 
 function nextSlide() {
-    // onclick "#next" > slide current slide left and next on
+    // onclick "#next" > slide current slide left and next slide on
     if (currentSlide.next) {
         $(".slide").animate({
             marginLeft: "-200px",
@@ -401,7 +405,7 @@ function nextSlide() {
 }
 
 function prevSlide() {
-    // onclick "#back" > slide current slide right and next on
+    // onclick "#back" > slide current slide right and next slide on
     if (currentSlide.previous) {
         $(".slide").animate({
             marginLeft: "200px",

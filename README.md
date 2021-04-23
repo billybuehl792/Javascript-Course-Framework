@@ -86,3 +86,18 @@ This will render:
 ![Menu Slide Example](./media/menuExample.jpg?raw=true "Content Example")
 
 This Menu only has one Item, but _n_ Sequence objects \( 'Items'\) or External-Link objects can be added to a Menu's `items` array.
+
+## How It Works
+Data from the `course.json` file is retrieved via a GET request to the server. `<title>` and `<h1 id="course-title">` element innerHTMLs are set with the `courseID` and `courseTitle` values, then the `mainSequence` instance is created using the `Sequence` template. 
+
+An `addItems` method is called upon the instantiation of a `Sequence` object. This method iterates through the `items` in the Sequence's JSON configuration, and appends `Slide` and `Menu` instances to the `items` instance variable. 
+
+When `Menu` instances are created, the `addItems` method is called which \(just like the `Sequence` template\) appends `Sequence` and `ExternalLink` instances to the `items` instance variable.
+
+This process of iterating through items in nested configurations creates an instance of each item in the entire JSON configuration! 
+
+As each instance is created, `next`, `previous`, and `parent` instance variables are set with other objects.
+
+The `mainSequence` is then rendered to the viewer \(which only renders its first item: a Slide or Menu\).
+
+When the **Next** or **Back** buttons are clicked, a currently rendered instance's `next` or `previous` object is rendered. 

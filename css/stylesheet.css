@@ -3,6 +3,7 @@
 :root {
     --light-blue: #337ab7;
     --dark-blue: #254061;
+    --green: #71bd51;
     --white: #fdfdfd;
     --grey: #eee;
     --dark-grey: #ccc;
@@ -143,12 +144,12 @@ input[disabled], input[disabled]:hover {
     padding: 15px;
     color: var(--black);
 }
-.slide-header {
+.slide-heading {
     font-size: 30px;
     font-weight: 900;
     line-height: 40px;
 }
-.slide-header1 {
+.slide-subheading {
     font-size: 20px;
     font-weight: 700;
     line-height: 30px;
@@ -175,7 +176,7 @@ input[disabled], input[disabled]:hover {
     margin: 5px;
     border-radius: 10px;
     color: var(--white);
-    background-color: var(--light-blue);
+    background-color: var(--grey);
 }
 .menu-text {
     font-size: 20px;
@@ -186,6 +187,12 @@ input[disabled], input[disabled]:hover {
 }
 .menu-sequence {
     background-color: var(--dark-grey);
+}
+.menu-link {
+    background-color: var(--green);
+}
+.menu-menu {
+    background-color: orange;
 }
 
 .complete {

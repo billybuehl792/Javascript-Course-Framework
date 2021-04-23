@@ -8,29 +8,18 @@
         "title": "mainSequence",
         "items": [
             {
-                "type": "menu",
-                "title": "blah blah blah menu",
-                "items": [
-                    {
-                        "type": "external-link",
-                        "title": "Must Watch Important Module",
-                        "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                    }
-                ]
-            },
-            {
                 "type": "slide",
                 "title": "Introduction",
                 "options": {
-                    "header": "Strategic Reasons for Thinking Strategically",
-                    "header1": "SMA-WBT-AS-123"
+                    "heading": "Strategic Reasons for Thinking Strategically",
+                    "subheading": "SMA-WBT-AS-123"
                 }
             }, 
             {
                 "type": "slide",
                 "title": "Welcome to the Course",
                 "options": {
-                    "header1": "In this course you'll learn all sorts of great stuff.",
+                    "subheading": "In this course you'll learn all sorts of great stuff.",
                     "list": [
                         "strategy",
                         "education"
@@ -41,8 +30,8 @@
                 "type": "slide",
                 "title": "Hello This is a Content Slide",
                 "options": {
-                    "header": "Cool Bands",
-                    "header1": "Here is a list of cool bands I like:",
+                    "heading": "Cool Bands",
+                    "subheading": "Here is a list of cool bands I like:",
                     "list": [
                         "Suburban Lawns",
                         "Anons",
@@ -53,11 +42,11 @@
                 }
             },
             {
-                "type": "custom-slide",
+                "type": "slide",
                 "title": "Custom Slide Demo",
                 "options": {
-                    "header": "test header",
-                    "slideHTML": [
+                    "heading": "test heading",
+                    "custom": [
                         "<div class='test' style='color: blue;'>Hello test</div>",
                         "<div class='test' style='color: orange;'>test again!</div"
                     ]
@@ -67,7 +56,7 @@
                 "type": "slide",
                 "title": "Objectives",
                 "options": {
-                    "header1": "This course has several objectives",
+                    "subheading": "This course has several objectives",
                     "list": [
                         "learn",
                         "educate",
@@ -79,6 +68,17 @@
                 "type": "menu",
                 "title": "Main Menu",
                 "items": [
+                    {
+                        "type": "menu",
+                        "title": "submenu",
+                        "items": [
+                            {
+                                "type": "external-link",
+                                "title": "Must Watch Important Module",
+                                "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                            }
+                        ]
+                    },
                     {
                         "type": "external-link",
                         "title": "Must Watch Important Module",
@@ -96,7 +96,7 @@
                                 "type": "slide",
                                 "title": "alright",
                                 "options": {
-                                    "header": "thats it!"
+                                    "heading": "thats it!"
                                 }
                             }
                         ]
@@ -126,14 +126,14 @@
                                 "type": "slide",
                                 "title": "Summary Slide",
                                 "options": {
-                                    "header": "goodbye"
+                                    "heading": "goodbye"
                                 }
                             },
                             {
                                 "type": "slide",
                                 "title": "complete",
                                 "options": {
-                                    "header": "wow youre done!"
+                                    "heading": "wow youre done!"
                                 }
                             }
                         ]
