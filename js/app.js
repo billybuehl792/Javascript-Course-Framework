@@ -6,10 +6,37 @@ var courseItems = [];
 
 class Item {
     // Sequence, Slide, Menu, Link, etc.
-    constructor(_title) {
+    constructor(_title, _parent=null, _previous=null, _next=null) {
         this.title = _title;
+        this.parent = _parent;
+        this._previous = _previous;
+        this._next = _next;
         this.id = this.genID();
         this.addCourseItem();
+    }
+
+    get next() {
+        if (!this._next) {
+            return this.parent
+        } else {
+            return this._next
+        }
+    }
+
+    get previous() {
+        if (!this._previous) {
+            return this.parent
+        } else {
+            return this._previous
+        }
+    }
+
+    set next(item) {
+        this._next = item;
+    }
+
+    set previous(item) {
+        this._previous = item;
     }
 
     genID() {
@@ -39,12 +66,9 @@ class Item {
 class Sequence extends Item {
     // Sequence of Slides and Menus | Item of: Root or Menu
     constructor(_title, _itemConfig, _parent=null, _previous=null, _next=null) {
-        super(_title);
+        super(_title, _parent, _previous, _next);
         this.type = "sequence";
         this.itemConfig = _itemConfig;
-        this.parent = _parent;
-        this.previous = _previous;
-        this.next = _next;
         this.items = [];
         this.addItems();
     }
@@ -71,7 +95,7 @@ class Sequence extends Item {
                     item = new Slide(itemConf.title, itemConf.options || null, i, this);
                     break;
                 case "menu":
-                    item = new Menu(itemConf.title, itemConf.options || null, i, this, itemConf.items);
+                    item = new Menu(itemConf.title, itemConf.options || null, i, itemConf.items, this);
                     break;
                 default:
                     alert("Course configuration error!");
@@ -103,13 +127,10 @@ class Sequence extends Item {
 class Slide extends Item {
     // Generic ol' Content Slide | Item of: Sequence
     constructor(_title, _options, _slideNum, _parent, _previous=null, _next=null) {
-        super(_title);
+        super(_title, _parent, _previous, _next);
         this.type = "slide";
         this.options = _options;
-        this.previous = _previous;
-        this.next = _next;
         this.slideNum = _slideNum;
-        this.parent = _parent;
         this.visited = false;
     }
 
@@ -273,7 +294,7 @@ class Slide extends Item {
 
 class Menu extends Slide {
     // Menu slide connecting sequences and links | Item of: Sequence
-    constructor(_title, _options, _slideNum, _parent=null, _itemConfig, _previous=null, _next=null) {
+    constructor(_title, _options, _slideNum, _itemConfig, _parent=null, _previous=null, _next=null) {
         super(_title, _options, _slideNum, _parent, _previous, _next);
         this.type = "menu";
         this.itemConfig = _itemConfig;
@@ -360,8 +381,7 @@ class Menu extends Slide {
                     item = new ExternalLink(itemConf.title, itemConf.link);
                     break;
                 case "menu":
-                    console.log(itemConf.type);
-                    item = new Menu(itemConf.title, itemConf.options || null, i, this, itemConf.items, this, this);
+                    item = new Menu(itemConf.title, itemConf.options || null, i, itemConf.items, this, this, this);
                     break;
                 default:
                     alert("Course configuration error!");
@@ -377,8 +397,8 @@ class Menu extends Slide {
 
 class ExternalLink extends Item {
     // Item linking to external doc/ page | Item of: Menu
-    constructor(_title, _link) {
-        super(_title);
+    constructor(_title, _link, _parent, _previous=null, _next=null) {
+        super(_title, _parent, _previous, _next);
         this.type = "external-link";
         this.link = _link;
         this.complete = false;
