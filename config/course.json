@@ -3,18 +3,11 @@
     "courseID": "WBT-123-SS-10",
     "studyGuidePDF": "WBT-SS-123-101_508.pdf",
 	"studyGuidePrint": "WBT-SS-123-101_studyGuide.pdf",
+    "genIntro": true,
     "mainSequence": {
         "type": "sequence",
         "title": "mainSequence",
         "items": [
-            {
-                "type": "slide",
-                "title": "Introduction",
-                "options": {
-                    "heading": "Strategic Reasons for Thinking Strategically",
-                    "subheading": "SMA-WBT-AS-123"
-                }
-            }, 
             {
                 "type": "slide",
                 "title": "Welcome to the Course",

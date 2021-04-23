@@ -418,6 +418,17 @@ function prevSlide() {
     }
 }
 
+function genSlide(slideTitle, heading, subHeading) {
+    var basicSlide = {
+        "type": "slide",
+        "title": slideTitle,
+        "options": {
+            "heading": heading,
+            "subheading": subHeading
+        }
+    }
+    return basicSlide;
+}
 
 $(document).ready(function() {
 
@@ -435,6 +446,13 @@ $(document).ready(function() {
         $("title").html(config.courseID);
         $("#course-title").html(config.courseTitle);
         
+        // add intro
+        if (config.genIntro) {
+            var introSlide = genSlide("Introduction", config.courseTitle, config.courseID)
+            main.items.unshift(introSlide);
+        }
+
+        // generate and render mainSequence
         mainSequence = new Sequence(main.title, main.items);
         mainSequence.render();
     });
