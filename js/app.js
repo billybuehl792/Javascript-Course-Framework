@@ -9,42 +9,10 @@ class Item {
     constructor(_title, _parent=null, _previous=null, _next=null) {
         this.title = _title;
         this.parent = _parent;
-        this._previous = _previous;
-        this._next = _next;
-        this.id = this.genID();
+        this.previous = _previous;
+        this.next = _next;
+        this.id = Item.genID();
         this.addCourseItem();
-    }
-
-    get next() {
-        if (!this._next) {
-            return this.parent
-        } else {
-            return this._next
-        }
-    }
-
-    get previous() {
-        if (!this._previous) {
-            return this.parent
-        } else {
-            return this._previous
-        }
-    }
-
-    set next(item) {
-        this._next = item;
-    }
-
-    set previous(item) {
-        this._previous = item;
-    }
-
-    genID() {
-        // create unique id for items
-        var S4 = function() {
-            return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-        };
-        return ("s"+S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
     }
 
     addCourseItem() {
@@ -52,7 +20,15 @@ class Item {
         courseItems.push(this);
     }
 
-    checkComplete() {
+    static genID() {
+        // create unique id for items
+        var S4 = function() {
+            return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+        };
+        return ("s"+S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    }
+
+    static checkComplete() {
         if (mainSequence.complete) {
             console.log("course complete!");
             alert('course is done, get outta here.');
@@ -75,7 +51,7 @@ class Sequence extends Item {
 
     get complete() {
         // return true if all items of sequence are complete
-        for (var i=0;i<this.items.length;i++) {
+        for (let i=0; i<this.items.length; i++) {
             if (!this.items[i].complete) {
                 return false;
             }
@@ -110,16 +86,19 @@ class Sequence extends Item {
             this.items.push(item);                          // push item to array
         }
         
-        this.items[0].previous = this.previous;             // set first item previous = sequence previous
-        this.items[this.items.length-1].next = this.next;   // set last item next = sequence next        
+        if (this.items.length > 0) {
+            this.items[0].previous = this.previous;         // set first item previous = sequence previous
+            this.items[this.items.length-1].next = this.next;  // set last item next = sequence next        
+        } else {
+            alert("Course configuration error!");
+            throw new Error("Sequences cannot be empty! Why would you even want this?");
+        }
     }
 
     render() {
         // renders sequence's first item
-        if (this.items.length > 0) {
-            this.items[0].render();
-        }
-        this.checkComplete();
+        this.items[0].render();
+        Item.checkComplete();
     }
 
 }
@@ -249,6 +228,8 @@ class Slide extends Item {
     }
 
     setButtons() {
+        // set #next and #back buttons enabled or disabled
+
         // disable next button
         if (this.next) {
             $("#next").prop("disabled", false);
@@ -275,19 +256,20 @@ class Slide extends Item {
         var slideHTML = this.slideHTML;
 
         // swap slide-container HTML
-        $("#slide-container").html(slideHTML).promise().done(function() {
+        $("#slide-container").html(slideHTML).promise().done(() => {
             $(".slide").animate({
                 opacity: "1",
                 marginLeft: "0px"
-            }, 250, "swing");
-        });
-
-        // set buttons and page numbers
-        this.setButtons();
-        this.setPageNumbers();
-
-        this.visited = true;
-        this.checkComplete();
+            }, 250, "swing", () => {
+                // check whether course is complete
+                Item.checkComplete();
+            });
+        }, () => {
+            // set buttons and page numbers
+            this.setButtons();
+            this.setPageNumbers();
+            this.visited = true;
+        }); 
     }
 
 }
