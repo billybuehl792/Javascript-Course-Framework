@@ -400,7 +400,7 @@ function nextSlide() {
         $(".slide").animate({
             marginLeft: "-200px",
             opacity: "0"
-        }, 200, "swing", function() {
+        }, 200, "swing", () => {
             currentSlide.next.render();
         });
     }
@@ -412,7 +412,7 @@ function prevSlide() {
         $(".slide").animate({
             marginLeft: "200px",
             opacity: "0"
-        }, 200, "swing", function() {
+        }, 200, "swing", () => {
             currentSlide.previous.render();
         });
     }
@@ -429,12 +429,12 @@ $(document).ready(function() {
 
         // config data
         var config = JSON.parse(JSON.stringify(result));
-        
+        var main = config.mainSequence;
+
         // set html tags
         $("title").html(config.courseID);
         $("#course-title").html(config.courseTitle);
-
-        var main = config.mainSequence;
+        
         mainSequence = new Sequence(main.title, main.items);
         mainSequence.render();
     });
