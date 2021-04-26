@@ -38,12 +38,12 @@
                 "type": "slide",
                 "title": "Custom Slide Demo",
                 "options": {
-                    "heading": "test heading",
-                    "custom": [
-                        "<div class='test' style='color: blue;'>Hello</div>",
-                        "<div class='test' style='color: orange;'>this text was created with handcrafted HTML!</div"
-                    ]
-                }
+                    "heading": "test heading"
+                },
+                "custom": [
+                    "<div class='test' style='color: blue;'>Hello</div>",
+                    "<div class='test' style='color: orange;'>this text was created with handcrafted HTML!</div"
+                ]
             },
             {
                 "type": "slide",

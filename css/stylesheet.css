@@ -168,11 +168,12 @@ input[disabled], input[disabled]:hover {
 }
 
 /* SLIDE MENU */
-.menu {
+.slide-menu {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
+    padding: 10px;
 }
 .menu-item {
     width: 250px;
