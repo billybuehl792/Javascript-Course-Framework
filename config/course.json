@@ -10,134 +10,190 @@
         "items": [
             {
                 "type": "slide",
-                "title": "Welcome to the Course",
-                "options": {
-                    "subheading": "In this course you'll learn all sorts of great stuff.",
-                    "list": [
-                        "strategy",
-                        "education"
-                    ],
-                    "paragraph": [
-                        "Use justify-content utilities on flexbox containers to change the alignment of flex items on the main axis."
-                    ],
-                    "alert": { "content": "This is the alert component", "style": "alert-success" },
+                "title": "Course Topics",
+                "options": [
+                  { "subheading": "Welcome to the Safety &amp; Mission Assurance in the Acquisition Process course.",
+                    "paragraph": { "text": "This course is designed to provide you with an introduction to procurement so that you understand where and how Safety and Mission Assurance fits into the acquisition process.", "style": "normal" },
                     "format": 1
-                }
-            },
-            {
-                "type": "slide",
-                "title": "Knowledge Check",
-                "options": {
-                    "knowledgecheck": {
-                      "header": "The very important NASA question would appear here",
-                      "body": [
-                          "This is the first answer choice",
-                          "This is the second answer choice",
-                          "This is the third answer choice",
-                          "This is the fourth answer choice"
-                      ],
-                      "answer": 3,
-                      "footer": "Please choose an answer above"
-                    },
-                    "format": 7
-                }
-            },
-            {
-                "type": "slide",
-                "title": "Custom Slide Demo",
-                "options": {
-                    "heading": "test heading"
-                },
-                "custom": [
-                    "<div class='test' style='color: blue;'>Hello</div>",
-                    "<div class='test' style='color: orange;'>this text was created with handcrafted HTML!</div>"
+                  },
+                  { "divider": {},
+                    "paragraph": { "text": "Topics include:", "style": "normal" },
+                    "list": [
+                        "Acquisition Basics — Terms, Concepts, Documents",
+                        "Overview of the Acquisition Process",
+                        "FAR and NFS Requirements",
+                        "valuating Offerors"
+                    ],
+                    "format": 1
+                  }
                 ]
             },
             {
                 "type": "slide",
-                "title": "Hello This is a Content Slide",
-                "options": {
-                    "heading": "Cool Bands",
-                    "subheading": "Here is a list of cool bands I like:",
-                    "list": [
-                        "Suburban Lawns",
-                        "Anons",
-                        "Kino",
-                        "Broadcast",
-                        "Bauhaus"
-                    ],
-                    "image": { "src": "img/Bitmap_400.jpg", "alt": "Plug Lockout", "caption": "Plug Lockout image" },
-                    "format": 1
-                }
-            },
-            {
-                "type": "slide",
-                "title": "Contains Bootstrap Alert",
-                "options": {
-                    "heading": "Cool Bands",
-                    "subheading": "Here is a list of cool bands I like:",
-                    "list": [
-                        "Suburban Lawns",
-                        "Bauhaus"
-                    ],
-                    "alert": { "content": "This is the alert component", "style": "alert-warning" },
-                    "format": 1
-                }
-            },
-            {
-                "type": "slide",
-                "title": "Right aligned, format = 2",
-                "options": {
-                    "heading": "Cool Bands",
-                    "subheading": "Here is a list of cool bands I like:",
-                    "list": [
-                        "Suburban Lawns",
-                        "Anons",
-                        "Kino",
-                        "Broadcast",
-                        "Bauhaus"
-                    ],
-                    "image": { "src": "img/Bitmap_400.jpg", "alt": "Plug Lockout", "caption": "Plug Lockout image" },
-                    "format": 3
-                }
-            },
-            {
-                "type": "slide",
-                "title": "Contains Bootstrap card",
-                "options": {
-                    "heading": "Bootstrap card",
-                    "subheading": "Here it is:",
-                    "card": { "header": "Some Header", "body": "With supporting text below as a natural lead-in to additional content.", "footer": "Optional footer" },
-                    "format": 1
-                }
-            },
-            {
-                "type": "slide",
-                "title": "Objectives",
-                "options": {
-                    "subheading": "Something going on here",
-                    "list": [
-                        "learn",
-                        "educate",
-                        "consume knowledge"
-                    ],
-                    "video": { "src": "video/NSE_Module_1.mp4", "captions": "video/NSE_Module_1.vtt", "placeholder": "video/placeholder.jpg" },
-                    "format": 1
-                }
-            },
-            {
-                "type": "slide",
-                "title": "An alt structure for content grouping (see JSON file)",
+                "title": "Expectations for the Course",
                 "options": [
-                    { "heading": "First Heading",
-                      "alert": { "content": "This is the alert component", "style": "alert-success" },
-                      "format": 1
-                    },
-                    { "heading": "Another Heading",
-                      "subheading": "Here's a subheading",
-                      "alert": { "content": "This is the second alert component", "style": "alert-danger" },
-                      "image": { "src": "img/Bitmap_400.jpg", "alt": "Plug Lockout", "caption": "Plug Lockout image" },
-                      "format": 3
+                  { "paragraph": { "text": "This course will help you to:", "style": "bold" },
+                    "list": [
+                        "Do a better job of developing the SMA portion of acquisition documents",
+                        "Be more effective at evaluating the SMA aspects of contractor proposals",
+                        "Provide sound risk-informed input",
+                        "Become a leading contributor to critical mission acquisitions"
+                    ],
+                    "format": 1
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Two Columns: 66%,33%",
+                "options": [
+                  { "columns": [
+                      { "subheading": "Here's a subheading",
+                        "paragraph": { "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac ex magna. Integer egestas arcu nisl, eget tempor purus efficitur et. Etiam imperdiet eros at condimentum molestie. Etiam hendrerit egestas ex at fermentum. Nulla accumsan tempus odio sed posuere. Nulla quis volutpat lorem, id viverra odio. Quisque urna enim, tempus in turpis vitae, porttitor sodales neque. Curabitur dictum sodales nunc, vitae pharetra mauris iaculis eu. Phasellus massa est, suscipit non malesuada id, dapibus ut nunc.", "style": "normal" }
+                      },
+                      {
+                        "image": { "src": "img/_1_1_2.jpg", "alt": "some image", "caption": "Image Caption" }
+                      }
+                    ],
+                    "format": 11
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Video",
+                "options": [
+                  { "subheading": "Here's a video",
+                    "video": { "src": "video/NSE_Module_1.mp4", "captions": "video/NSE_Module_1.vtt", "placeholder": "video/placeholder.jpg" },
+                    "spacer": {},
+                    "format": 8
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Two Columns: : 33%,66%",
+                "options": [
+                  { "columns": [
+                      { "subheading": "Subheading",
+                        "paragraph": { "text": "Topics include:", "style": "normal" },
+                        "list": [
+                            "Acquisition Basics",
+                            "Overview of the Acquisition Process",
+                            "FAR and NFS Requirements",
+                            "valuating Offerors"
+                        ]
+                      },
+                      { "subheading": "Here's a subheading",
+                        "paragraph": { "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac ex magna. Integer egestas arcu nisl, eget tempor purus efficitur et. Etiam imperdiet eros at condimentum molestie. Etiam hendrerit egestas ex at fermentum. Nulla accumsan tempus odio sed posuere. Nulla quis volutpat lorem, id viverra odio. Quisque urna enim, tempus in turpis vitae, porttitor sodales neque. Curabitur dictum sodales nunc, vitae pharetra mauris iaculis eu. Phasellus massa est, suscipit non malesuada id, dapibus ut nunc.", "style": "normal" },
+                        "alert": { "content": "This is the second alert component", "style": "alert-danger" }
+                      }
+                    ],
+                    "format": 12
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Multiple Equal Columns",
+                "options": [
+                  { "heading": "Some Heading to Show Above the Columns",
+                    "format": 2
+                  },
+                  { "columns": [
+                      { "subheading": "First subheading",
+                        "alert": { "content": "This is the alert component", "style": "alert-success" },
+                        "paragraph": { "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac ex magna. Integer egestas arcu nisl, eget tempor purus efficitur et.", "style": "normal" }
+                      },
+                      { "subheading": "Second subheading",
+                        "alert": { "content": "This is the second alert component", "style": "alert-warning" }
+                      },
+                      { "subheading": "Third subheading",
+                        "alert": { "content": "This is the third alert component", "style": "alert-info" }
+                      }
+                    ],
+                    "format": 10
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Multiple Equal Columns",
+                "options": [
+                  { "heading": "Some Heading to Show Above the Columns",
+                    "format": 2
+                  },
+                  { "columns": [
+                      { "subheading": "First subheading",
+                        "alert": { "content": "This is the alert component", "style": "alert-success" },
+                        "paragraph": { "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac ex magna. Integer egestas arcu nisl, eget tempor purus efficitur et. Etiam imperdiet eros at condimentum molestie. Etiam hendrerit egestas ex at fermentum. Nulla accumsan tempus odio sed posuere. Nulla quis volutpat lorem, id viverra odio.", "style": "normal" }
+                      },
+                      { "subheading": "Second subheading",
+                        "alert": { "content": "This is the second alert component", "style": "alert-dark" }
+                      }
+                    ],
+                    "format": 10
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Content width about 80%",
+                "options": [
+                  { "heading": "Another Heading",
+                    "subheading": "Here's a subheading",
+                    "card": { "header": "Some Header", "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac ex magna. Integer egestas arcu nisl, eget tempor purus efficitur et. Etiam imperdiet eros at condimentum molestie. Etiam hendrerit egestas ex at fermentum. Nulla accumsan tempus odio sed posuere. Nulla quis volutpat lorem, id viverra odio.", "footer": "Optional footer" },
+                    "format": 8
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Two Columns",
+                "options": [
+                  { "columns": [
+                      { "heading": "First Heading",
+                        "subheading": "Here's a subheading",
+                        "alert": { "content": "This is the alert component", "style": "alert-success" }
+                      },
+                      { "heading": "Another Heading",
+                        "subheading": "Here's a subheading",
+                        "alert": { "content": "This is the second alert component", "style": "alert-danger" }
+                      }
+                    ],
+                    "format": 10
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Knowledge Check",
+                "options": [
+                    { "knowledgecheck": {
+                        "header": "The very important NASA question would appear here",
+                        "body": [
+                            "A. This is the first answer choice",
+                            "B. This is the second answer choice",
+                            "C. This is the third answer choice",
+                            "D. This is the fourth answer choice"
+                        ],
+                        "answer": 3,
+                        "footer": "Please choose an answer above"
+                      },
+                      "format": 7
+                    }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Custom Slide Demo",
+                "options": [
+                    { "heading": "Custom Content follows",
+                      "custom": [
+                        "<div class='test' style='color: blue;'>Hello</div>",
+                        "<div class='test' style='color: orange;'>this text was created with handcrafted HTML!</div>"
+                        ],
+                        "format": 1
                     }
                 ]
             },
@@ -156,18 +212,25 @@
                         "items": [
                             {
                                 "type": "slide",
-                                "title": "hello blah",
-                                "options": {
-                                    "heading": "Welcome to the hello blah slide"
-                                }
+                                "title": "Subsection Content",
+                                "options": [
+                                    { "heading": "Sub Header",
+                                      "subheading": "Here's a subheading",
+                                      "alert": { "content": "This is the second alert component", "style": "alert-danger" },
+                                      "format": 1
+                                    }
+                                ]
                             },
                             {
                                 "type": "slide",
-                                "title": "alright",
-                                "options": {
-                                    "heading": "thats it!",
-                                    "subheading": "please go"
-                                }
+                                "title": "More of the subsection",
+                                "options": [
+                                    { "heading": "Sub Header",
+                                      "subheading": "Here's a subheading",
+                                      "alert": { "content": "This is the second alert component", "style": "alert-warning" },
+                                      "format": 1
+                                    }
+                                ]
                             }
                         ]
                     },

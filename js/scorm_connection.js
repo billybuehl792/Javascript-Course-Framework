@@ -1,6 +1,7 @@
 // JavaScript Document
 var scorm = pipwerks.SCORM;  //Shortcut
 var lmsConnected = false;
+var LMSSuspendData;
 
 function handleError(msg){
    alert(msg);
@@ -8,6 +9,30 @@ function handleError(msg){
 }
 
 function initCourse(){
+   //scorm.init returns a boolean
+   lmsConnected = scorm.init();
+   //If the scorm.init function succeeded...
+   if(lmsConnected){
+	  //Let's get the completion status to see if the course has already been completed
+	  var completionstatus = scorm.get("cmi.core.lesson_status");
+	  //If the course has already been completed...
+	  if(completionstatus === "completed" || completionstatus === "passed"){
+		 //...let's display a message and close the browser window
+		 handleError("You have already completed this course. You do not need to continue.");
+	  } else {
+		  //handleError("LMSconnect = " + lmsConnected);
+	  }
+	  //var mySuspendData = scorm.get("cmi.suspend_data");
+    //console.log(mySuspendData);
+    LMSSuspendData = scorm.get("cmi.suspend_data"); // assign to global var in main.js
+   //If the course couldn't connect to the LMS for some reason...
+   } else {
+	  //... let's alert the user then close the window.
+	  handleError("Error: + LMSconnect =" + lmsConnected + "Course could not connect with the LMS. Please contact the help desk.");
+   }
+}
+
+function initCourse_orig(){
    //scorm.init returns a boolean
    lmsConnected = scorm.init();
    //If the scorm.init function succeeded...

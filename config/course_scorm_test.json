@@ -1,0 +1,103 @@
+{
+    "courseTitle": "Strategic Reasons for Thinking Strategically",
+    "courseID": "WBT-123-SS-10",
+    "studyGuidePDF": "WBT-SS-123-101_508.pdf",
+	  "studyGuidePrint": "WBT-SS-123-101_studyGuide.pdf",
+    "genIntro": true,
+    "mainSequence": {
+        "type": "sequence",
+        "title": "mainSequence",
+        "items": [
+            {
+                "type": "slide",
+                "title": "Course Topics",
+                "options": [
+                  { "subheading": "Welcome to the Safety &amp; Mission Assurance in the Acquisition Process course.",
+                    "paragraph": { "text": "This course is designed to provide you with an introduction to procurement so that you understand where and how Safety and Mission Assurance fits into the acquisition process.", "style": "normal" },
+                    "format": 1
+                  },
+                  { "paragraph": { "text": "Topics include:", "style": "normal" },
+                    "list": [
+                        "Acquisition Basics — Terms, Concepts, Documents",
+                        "Overview of the Acquisition Process",
+                        "FAR and NFS Requirements",
+                        "valuating Offerors"
+                    ],
+                    "format": 1
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Two Columns: 66%,33%",
+                "options": [
+                  { "columns": [
+                      { "subheading": "Here's a subheading",
+                        "paragraph": { "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac ex magna. Integer egestas arcu nisl, eget tempor purus efficitur et. Etiam imperdiet eros at condimentum molestie. Etiam hendrerit egestas ex at fermentum. Nulla accumsan tempus odio sed posuere. Nulla quis volutpat lorem, id viverra odio. Quisque urna enim, tempus in turpis vitae, porttitor sodales neque. Curabitur dictum sodales nunc, vitae pharetra mauris iaculis eu. Phasellus massa est, suscipit non malesuada id, dapibus ut nunc.", "style": "normal" }
+                      },
+                      {
+                        "image": { "src": "img/_1_1_2.jpg", "alt": "some image", "caption": "Image Caption" }
+                      }
+                    ],
+                    "format": 11
+                  }
+                ]
+            },
+            {
+                "type": "menu",
+                "title": "Main Menu",
+                "items": [
+                    {
+                        "type": "external-link",
+                        "title": "Learn JS, it's fun",
+                        "link": "https://www.w3schools.com/js/default.asp"
+                    },
+                    {
+                        "type": "sequence",
+                        "title": "Learning as a Learner",
+                        "items": [
+                            {
+                                "type": "slide",
+                                "title": "Subsection Content",
+                                "options": [
+                                    { "heading": "Sub Header",
+                                      "subheading": "Here's a subheading",
+                                      "alert": { "content": "This is the second alert component", "style": "alert-danger" },
+                                      "format": 1
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "slide",
+                                "title": "More of the subsection",
+                                "options": [
+                                    { "heading": "Sub Header",
+                                      "subheading": "Here's a subheading",
+                                      "alert": { "content": "This is the second alert component", "style": "alert-warning" },
+                                      "format": 1
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "menu",
+                        "title": "Submenu",
+                        "items": [
+                            {
+                                "type": "external-link",
+                                "title": "Must Watch Important Module",
+                                "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "external-link",
+                        "title": "Another Link Item",
+                        "link": "https://www.w3schools.com/js/default.asp"
+                    }
+                ]
+            }
+        ]
+    }
+}

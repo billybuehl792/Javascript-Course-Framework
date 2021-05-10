@@ -3,6 +3,7 @@
 var currentSlide;
 var mainSequence;
 var courseItems = [];
+var contentItems = []; // collection for content-only course items (slide/external-link)
 
 class Item {
     // Sequence, Slide, Menu, Link, etc.
@@ -30,10 +31,10 @@ class Item {
 
     static checkComplete() {
         if (mainSequence.complete) {
-            console.log("course complete!");
-            alert('course is done, get outta here.');
+            console.log("course completed!");
+            //alert('course is done, get outta here.');
         } else {
-            console.log("incomplete")
+            //console.log("course incomplete")
         }
     }
 
@@ -85,10 +86,10 @@ class Sequence extends Item {
             }
             this.items.push(item);                          // push item to array
         }
-        
+
         if (this.items.length > 0) {
             this.items[0].previous = this.previous;         // set first item previous = sequence previous
-            this.items[this.items.length-1].next = this.next;  // set last item next = sequence next        
+            this.items[this.items.length-1].next = this.next;  // set last item next = sequence next
         } else {
             alert("Course configuration error!");
             throw new Error("Sequences cannot be empty! Why would you even want this?");
@@ -112,153 +113,113 @@ class Slide extends Item {
         this.custom = _custom;
         this.slideNum = _slideNum;
         this.visited = false;
+        this.curSection = 0;
     }
 
     get complete() {
         return this.visited;
     }
 
-    get slideBanner() {
-        var banner = document.createElement("div");
-        var statusBox = document.createElement("div");
-        var container = document.createElement("div");
-        var titleBox = document.createElement("div");
-        var slideTitle = document.createElement("h1");
-        var status;
-
-        container.className = "container";
-        banner.className = "slide-banner";          // banner class name
-        statusBox.className = "slide-status";       // statusBox class name
-        titleBox.className = "slide-title";         // titleBox class name
-        slideTitle.innerHTML = this.title;          // set slide's title  
-        if (this.complete) {                        // if slide visited, render checkmark
-            status = document.createElement("img");
-            status.src = "img/check-white_1.png";
-            status.alt = "checkmark";
-        } else {                                    // render slide's number in sequence
-            status = document.createElement("h1");
-            status.innerHTML = this.slideNum + 1;
-        }
-        container.appendChild(status);
-        statusBox.appendChild(container);
-        titleBox.appendChild(slideTitle);
-        banner.appendChild(statusBox);
-        banner.appendChild(titleBox);
-
-        return banner;
+    // iterates JSON options object and parses out slide content
+    // Note: this calls code in formats.js to generate slide formatting and content
+    getSectionContent(section,container) {
+      var _this = this;
+      $.each(section, function( key, value ) {
+        if (key == "heading") { container.appendChild(formatter.slideHeading(section.heading)); }
+        if (key == "subheading") { container.appendChild(formatter.slideSubheading(section.subheading)); }
+        if (key == "list") { container.appendChild(formatter.slideList(section.list)); }
+        if (key == "paragraph") { container.appendChild(formatter.slideParagraph(section.paragraph)); }
+        if (key == "image") { container.appendChild(formatter.slideImage(section.image)); }
+        if (key == "video") { container.appendChild(formatter.slideVideo(section.video)); }
+        if (key == "alert") { container.appendChild(formatter.slideAlert(section.alert)); }
+        if (key == "card") { container.appendChild(formatter.slideCard(section.card)); }
+        if (key == "knowledgecheck") { container.appendChild(formatter.slideReview(_this,section.knowledgecheck)); }
+        if (key == "divider") { container.appendChild(formatter.slideDivider(section.divider)); }
+        if (key == "spacer") { container.appendChild(formatter.slideSpacer(section.spacer)); }
+        if (key == "custom") { container.appendChild(formatter.slideCustom(section.custom)); }
+      });
+      return container;
     }
 
     get slideText() {
-
-        function slideHeading(heading) {
-            // return slide heading HTML
-            var slideHead = document.createElement("h1");
-            slideHead.innerHTML = heading;
-            slideHead.className = "slide-heading";
-
-            return slideHead;
-        }
-
-        function slideSubheading(subheading) {
-            // return slide subheading HTML
-            var slideSub = document.createElement("h2");
-            slideSub.innerHTML = subheading;
-            slideSub.className = "slide-subheading";
-
-            return slideSub;
-        }
-
-        function slideList(list) {
-            // return slide list HTML
-            var slideList = document.createElement("ul");
-            slideList.className = "slide-list";
-
-            var listItem;
-            for (let i=0; i<list.length; i++) {
-                listItem = document.createElement("li");
-                listItem.className = "slide-list-elem";
-                listItem.innerHTML = list[i];
-                slideList.appendChild(listItem);
-            }
-
-            return slideList;
-        }
-
-        function slideParagraph(paragraphs) {
-            // return slide list HTML
-            var div = document.createElement("div");
-            div.className = "paragraph";
-
-            var pHTML;
-            for (let i=0; i<paragraphs.length; i++) {
-                pHTML = document.createElement("p");
-                pHTML.innerHTML = paragraphs[i];
-                div.appendChild(pHTML);
-                div.appendChild(document.createElement("br"));
-            }
-
-            return div;
-        }
-
         var slideText = null;
 
         // add slide elements to slideText
         if (this.options) {
-            slideText = document.createElement("div");
-            slideText.className = "slide-text";
-
-            if (this.options.heading) {
-                slideText.appendChild(slideHeading(this.options.heading));
-            }
-            if (this.options.subheading) {
-                slideText.appendChild(slideSubheading(this.options.subheading));
-            }
-            if (this.options.list) {
-                slideText.appendChild(slideList(this.options.list));
-            }
-            if (this.options.paragraph) {
-                slideText.appendChild(slideParagraph(this.options.paragraph));
-            }
+            slideText = document.createElement("content-section");
+            var section = this.options[this.curSection];  // use class property to track current section
+            this.getSectionContent(section,slideText);
         }
 
         return slideText
     }
 
-    get slideCustom() {
-        // return custom HTML
+    // parses slide content and formats using tag/integer in JSON (uses formats.js functions)
+    get slideLayout() {
+      var slideContainer = document.createElement("div");
+      slideContainer.className = "slide-content col";
+      var slideContent = document.createElement("content-container");
 
-        var customHTML = null;
+      var slideSection;
 
-        if (this.custom) {
-            customHTML = document.createElement("div");
-            customHTML.className = "slide-custom";
-            customHTML.innerHTML = this.custom.join('');
-        }
+      for (let i=0; i<this.options.length; i++) {
+        var section = this.options[i];
+        this.curSection = i; // important! use class property to track current section
+        slideSection = formatter.getFormat(this,section); // get formatted content
+        if (slideSection) { slideContent.appendChild(slideSection); }
+      }
 
-        return customHTML;
+      slideContainer.appendChild(slideContent);
+
+      return slideContainer;
     }
 
     get slideContent() {
         var slideContent = document.createElement("div");
-        slideContent.className = "slide-content";
+        slideContent.className = "card outerShadow";
+        slideContent.id = "card-container";
 
-        if (this.slideText) {
-            slideContent.appendChild(this.slideText);
+        // create header
+        var header = document.createElement("div");
+        var check = document.createElement("span");
+        var title = document.createElement("p");
+        check.className = "circled float-left";
+        header.className = "card-header bg-step";
+        header.id = "card-container-header";
+        (this.complete) ? check.innerHTML = "<i class='bi-check'></i>" : check.innerHTML = String(this.slideNum+1);
+        title.innerHTML = this.title;
+        header.appendChild(check);
+        header.appendChild(title);
+        slideContent.appendChild(header);
+
+        // create body
+        var body = document.createElement("div");
+        var row = document.createElement("div");
+        var col = document.createElement("div");
+        body.className = "card-body";
+        row.className = "row";
+        //col.className = "slide-content col";
+
+        if (this.type == "slide") {
+          var layout = this.slideLayout; // get layout markup and content
+          row.appendChild(layout);
+        } else { // provide class target for menu insertion
+          col.className = "slide-content col";
+          row.appendChild(col);
         }
-        if (this.slideCustom) {
-            slideContent.appendChild(this.slideCustom);
-        }
+
+        //row.appendChild(col)
+        body.appendChild(row);
+
+        slideContent.appendChild(body)
 
         return slideContent;
     }
 
     get slideHTML() {
         var html = document.createElement("div");
-
         html.id = this.id;
         html.className = "slide";
-        
-        html.appendChild(this.slideBanner);
         html.appendChild(this.slideContent);
 
         return html;
@@ -280,6 +241,13 @@ class Slide extends Item {
         } else {
             $("#back").prop("disabled", true);
         }
+    }
+
+    // called from knowledge check button handlers (supplies bool if correct and text of correct answer)
+    showQuestionResponse(correct,answer) {
+      (correct) ? $('#quiz-caption').text("You got it!") : $('#quiz-caption').text("Incorrect! The correct answer was:");
+      $('#quiz-body').text(answer);
+      $('#quizAnswer').modal('show');
     }
 
     setPageNumbers() {
@@ -310,7 +278,7 @@ class Slide extends Item {
             this.setButtons();
             this.setPageNumbers();
             this.visited = true;
-        }); 
+        });
     }
 
 }
@@ -340,7 +308,7 @@ class Menu extends Slide {
 
         function menuItem(item) {
             // return menu item HTML
-            
+
             function menuItemStyle(type) {
                 // return class name for menu item
                 switch (type) {
@@ -357,7 +325,7 @@ class Menu extends Slide {
 
                 menuItemIcon.src = `img/icon_${type}.png`;
                 menuItemIcon.alt = "menu-item-icon";
-                
+
                 iconContainer.appendChild(menuItemIcon);
                 return iconContainer;
             }
@@ -365,7 +333,7 @@ class Menu extends Slide {
             function menuItemText(title) {
                 // return menu item textbox
                 var menuTextBox = document.createElement("div");
-                var menuText = document.createElement("h2");
+                var menuText = document.createElement("p");
 
                 // add item menu text
                 menuTextBox.className = "menu-text";
@@ -388,6 +356,7 @@ class Menu extends Slide {
 
             // menu item onclicks
             menuItem.onclick = function() {
+              console.log("menu item");
                 item.render();
             }
 
@@ -397,7 +366,7 @@ class Menu extends Slide {
             // menuItem.appendChild(menuItemIcon(item.type));
 
             return menuItem;
-        }            
+        }
 
         var slideMenu = document.createElement("div");
 
@@ -411,7 +380,8 @@ class Menu extends Slide {
 
     get slideContent() {
         var html = super.slideContent;
-        html.appendChild(this.slideMenu);
+        var target = html.querySelector(".slide-content"); // insert menu items inside Bootstrap 'card' body
+        target.appendChild(this.slideMenu);
 
         return html;
     }
@@ -448,15 +418,33 @@ class ExternalLink extends Item {
         super(_title, _parent, _previous, _next);
         this.type = "external-link";
         this.link = _link;
-        this.complete = false;
+        this.visited = false;
+    }
+
+    get complete() {
+        return this.visited;
     }
 
     render() {
         window.open(this.link);
-        this.complete = true;
+        this.visited = true;
         currentSlide.render();
     }
 }
+
+function addKeyHandlers() {
+		$(document).on('keydown', function(event) {
+      if ((event.keyCode == 39)) { // right arrow key
+				event.preventDefault();
+        $('#quizAnswer').modal('hide');
+        $("#next").click();
+			} else if ((event.keyCode == 37)) { // left arrow key
+				event.preventDefault();
+        $('#quizAnswer').modal('hide');
+        $("#back").click();
+			}
+    });
+	};
 
 
 function nextSlide() {
@@ -467,6 +455,7 @@ function nextSlide() {
             opacity: "0"
         }, 200, "swing", () => {
             currentSlide.next.render();
+            updateLMS();
         });
     }
 }
@@ -483,24 +472,72 @@ function prevSlide() {
     }
 }
 
-function genSlide(slideTitle, heading, subHeading) {
+function genSlide(slideTitle, heading, subHeading, format=5) {
     // retrun dict of basic slide
     var basicSlide = {
         "type": "slide",
         "title": slideTitle,
-        "options": {
-            "heading": heading,
-            "subheading": subHeading
-        }
+        "options": [
+          { "heading": heading,
+            "subheading": subHeading,
+            "format": format
+          }
+        ]
     }
     return basicSlide;
 }
+
+/* ===========================
+  --- SCORM-related functions
+============================ */
+
+// use data string from LMS to set completion state of course content items
+function loadCourseProgress(pStr) {
+    var itemCount = 0;
+    function getNumItems(menu) {
+        for (var i=0; i<menu.items.length; i++) {
+            if (menu.items[i].items) {
+               getNumItems(menu.items[i]);
+            } else {
+              contentItems.push(menu.items[i]); // 'contentItems' is global var
+              itemCount++;
+            }
+        }
+    }
+    getNumItems(mainSequence);
+    var progressItems = pStr.split(',');
+    //console.log(contentItems.length);
+    if (progressItems.length === contentItems.length) { // check data length recv'd against # items
+        for (var j=0; j < contentItems.length; j++) {
+          (progressItems[j] === '1') ? contentItems[j].visited = true : contentItems[j].visited = false;
+        }
+    } else { console.log('ERROR: data from LMS is incorrect for course content length'); }
+}
+
+// build and return string to update the LMS variable for completion tracking
+function getCourseProgress() {
+    var courseProgress= '';
+    for (var i=0; i < contentItems.length; i++) {
+      (contentItems[i].visited) ? courseProgress += '1' : courseProgress += '0';
+      if (i != (contentItems.length-1)) { courseProgress += ','; }
+    }
+    return courseProgress;
+}
+
+// update LMS with completion status
+function updateLMS() {
+  setSuspendData(getCourseProgress());
+}
+
+/* ===========================
+  --- END: SCORM-related functions
+============================ */
 
 $(document).ready(function() {
 
     // course config JSON
     var configFile = "config/course.json";
-    
+
     // get JSON config from server
     $.getJSON(configFile, function(result) {
 
@@ -508,10 +545,11 @@ $(document).ready(function() {
         var config = JSON.parse(JSON.stringify(result));
         var main = config.mainSequence;
 
-        // set html tags
+        // set up UI framework
         $("title").html(config.courseID);
         $("#course-title").html(config.courseTitle);
-        
+        addKeyHandlers(); // add key handlers for nav buttons
+
         // add intro
         if (config.genIntro) {
             var introSlide = genSlide("Introduction", config.courseTitle, config.courseID)
@@ -520,6 +558,13 @@ $(document).ready(function() {
 
         // generate and render mainSequence
         mainSequence = new Sequence(main.title, main.items);
+
+        // SCORM
+        initCourse(); // SCORM Connection - Enable when course ready for LMS
+        //LMSSuspendData = "1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1";
+        LMSSuspendData = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"; // for testing purposes only
+        loadCourseProgress(LMSSuspendData);
+
         mainSequence.render();
     });
 
