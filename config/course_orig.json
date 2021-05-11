@@ -1,0 +1,194 @@
+{
+    "courseTitle": "Strategic Reasons for Thinking Strategically",
+    "courseID": "WBT-123-SS-10",
+    "studyGuidePDF": "WBT-SS-123-101_508.pdf",
+	  "studyGuidePrint": "WBT-SS-123-101_studyGuide.pdf",
+    "genIntro": true,
+    "mainSequence": {
+        "type": "sequence",
+        "title": "mainSequence",
+        "items": [
+            {
+                "type": "slide",
+                "title": "Welcome to the Course",
+                "options": {
+                    "subheading": "In this course you'll learn all sorts of great stuff.",
+                    "list": [
+                        "strategy",
+                        "education"
+                    ],
+                    "paragraph": [
+                        "Use justify-content utilities on flexbox containers to change the alignment of flex items on the main axis."
+                    ],
+                    "alert": { "content": "This is the alert component", "style": "alert-success" },
+                    "format": 1
+                }
+            },
+            {
+                "type": "slide",
+                "title": "Knowledge Check",
+                "options": {
+                    "knowledgecheck": {
+                      "header": "The very important NASA question would appear here",
+                      "body": [
+                          "This is the first answer choice",
+                          "This is the second answer choice",
+                          "This is the third answer choice",
+                          "This is the fourth answer choice"
+                      ],
+                      "answer": 3,
+                      "footer": "Please choose an answer above"
+                    },
+                    "format": 7
+                }
+            },
+            {
+                "type": "slide",
+                "title": "Custom Slide Demo",
+                "options": {
+                    "heading": "test heading"
+                },
+                "custom": [
+                    "<div class='test' style='color: blue;'>Hello</div>",
+                    "<div class='test' style='color: orange;'>this text was created with handcrafted HTML!</div>"
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Hello This is a Content Slide",
+                "options": {
+                    "heading": "Cool Bands",
+                    "subheading": "Here is a list of cool bands I like:",
+                    "list": [
+                        "Suburban Lawns",
+                        "Anons",
+                        "Kino",
+                        "Broadcast",
+                        "Bauhaus"
+                    ],
+                    "image": { "src": "img/Bitmap_400.jpg", "alt": "Plug Lockout", "caption": "Plug Lockout image" },
+                    "format": 1
+                }
+            },
+            {
+                "type": "slide",
+                "title": "Contains Bootstrap Alert",
+                "options": {
+                    "heading": "Cool Bands",
+                    "subheading": "Here is a list of cool bands I like:",
+                    "list": [
+                        "Suburban Lawns",
+                        "Bauhaus"
+                    ],
+                    "alert": { "content": "This is the alert component", "style": "alert-warning" },
+                    "format": 1
+                }
+            },
+            {
+                "type": "slide",
+                "title": "Right aligned, format = 2",
+                "options": {
+                    "heading": "Cool Bands",
+                    "subheading": "Here is a list of cool bands I like:",
+                    "list": [
+                        "Suburban Lawns",
+                        "Anons",
+                        "Kino",
+                        "Broadcast",
+                        "Bauhaus"
+                    ],
+                    "image": { "src": "img/Bitmap_400.jpg", "alt": "Plug Lockout", "caption": "Plug Lockout image" },
+                    "format": 3
+                }
+            },
+            {
+                "type": "slide",
+                "title": "Contains Bootstrap card",
+                "options": {
+                    "heading": "Bootstrap card",
+                    "subheading": "Here it is:",
+                    "card": { "header": "Some Header", "body": "With supporting text below as a natural lead-in to additional content.", "footer": "Optional footer" },
+                    "format": 1
+                }
+            },
+            {
+                "type": "slide",
+                "title": "Objectives",
+                "options": {
+                    "subheading": "Something going on here",
+                    "list": [
+                        "learn",
+                        "educate",
+                        "consume knowledge"
+                    ],
+                    "video": { "src": "video/NSE_Module_1.mp4", "captions": "video/NSE_Module_1.vtt", "placeholder": "video/placeholder.jpg" },
+                    "format": 1
+                }
+            },
+            {
+                "type": "slide",
+                "title": "An alt structure for content grouping (see JSON file)",
+                "options": [
+                    { "heading": "First Heading",
+                      "alert": { "content": "This is the alert component", "style": "alert-success" },
+                      "format": 1
+                    },
+                    { "heading": "Another Heading",
+                      "subheading": "Here's a subheading",
+                      "alert": { "content": "This is the second alert component", "style": "alert-danger" },
+                      "image": { "src": "img/Bitmap_400.jpg", "alt": "Plug Lockout", "caption": "Plug Lockout image" },
+                      "format": 3
+                    }
+                ]
+            },
+            {
+                "type": "menu",
+                "title": "Main Menu",
+                "items": [
+                    {
+                        "type": "external-link",
+                        "title": "Learn JS, it's fun",
+                        "link": "https://www.w3schools.com/js/default.asp"
+                    },
+                    {
+                        "type": "sequence",
+                        "title": "Learning as a Learner",
+                        "items": [
+                            {
+                                "type": "slide",
+                                "title": "hello blah",
+                                "options": {
+                                    "heading": "Welcome to the hello blah slide"
+                                }
+                            },
+                            {
+                                "type": "slide",
+                                "title": "alright",
+                                "options": {
+                                    "heading": "thats it!",
+                                    "subheading": "please go"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "menu",
+                        "title": "Submenu",
+                        "items": [
+                            {
+                                "type": "external-link",
+                                "title": "Must Watch Important Module",
+                                "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "external-link",
+                        "title": "Another Link Item",
+                        "link": "https://www.w3schools.com/js/default.asp"
+                    }
+                ]
+            }
+        ]
+    }
+}

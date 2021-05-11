@@ -1,0 +1,264 @@
+{
+    "courseTitle": "Strategic Reasons for Thinking Strategically",
+    "courseID": "WBT-123-SS-10",
+    "studyGuidePDF": "WBT-SS-123-101_508.pdf",
+	  "studyGuidePrint": "WBT-SS-123-101_studyGuide.pdf",
+    "genIntro": true,
+    "mainSequence": {
+        "type": "sequence",
+        "title": "mainSequence",
+        "items": [
+            {
+                "type": "slide",
+                "title": "Course Topics",
+                "options": [
+                  { "subheading": "Welcome to the Safety &amp; Mission Assurance in the Acquisition Process course.",
+                    "paragraph": { "text": "This course is designed to provide you with an introduction to procurement so that you understand where and how Safety and Mission Assurance fits into the acquisition process.", "style": "normal" },
+                    "format": 1
+                  },
+                  { "paragraph": { "text": "Topics include:", "style": "normal" },
+                    "list": [
+                        "Acquisition Basics — Terms, Concepts, Documents",
+                        "Overview of the Acquisition Process",
+                        "FAR and NFS Requirements",
+                        "valuating Offerors"
+                    ],
+                    "format": 1
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Two Columns",
+                "options": [
+                  { "heading": "Another Slide Section",
+                    "subheading": "Here's a second subheading",
+                    "format": 2
+                  },
+                  { "columns": [
+                      { "heading": "First Heading",
+                        "subheading": "Here's a subheading",
+                        "alert": { "content": "This is the alert component", "style": "alert-success" }
+                      },
+                      { "heading": "Another Heading",
+                        "subheading": "Here's a subheading",
+                        "alert": { "content": "This is the second alert component", "style": "alert-danger" }
+                      }
+                    ],
+                    "format": 12
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Two Columns",
+                "options": [
+                  { "heading": "Another Slide Section",
+                    "subheading": "Here's a second subheading",
+                    "format": 2
+                  },
+                  { "columns": [
+                      { "heading": "First Heading",
+                        "subheading": "Here's a subheading",
+                        "alert": { "content": "This is the alert component", "style": "alert-success" }
+                      },
+                      { "heading": "Another Heading",
+                        "subheading": "Here's a subheading",
+                        "alert": { "content": "This is the second alert component", "style": "alert-danger" }
+                      },
+                      { "heading": "Third Heading",
+                        "subheading": "Here's a subheading",
+                        "alert": { "content": "This is the second alert component", "style": "alert-danger" }
+                      }
+                    ],
+                    "format": 10
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Expectations for the Course",
+                "options": [
+                  { "paragraph": { "text": "This course will help you to:", "style": "bold" },
+                    "list": [
+                        "Do a better job of developing the SMA portion of acquisition documents",
+                        "Be more effective at evaluating the SMA aspects of contractor proposals",
+                        "Provide sound risk-informed input",
+                        "Become a leading contributor to critical mission acquisitions"
+                    ],
+                    "format": 1
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "First slide",
+                "options": [
+                  { "heading": "FirstHeading",
+                    "subheading": "Here's a subheading",
+                    "alert": { "content": "This is the alert component", "style": "alert-success" },
+                    "image": { "src": "img/Bitmap_400.jpg", "alt": "Plug Lockout", "caption": "Plug Lockout image" },
+                    "format": 1
+                  },
+                  { "heading": "Another Heading",
+                    "subheading": "Here's a subheading",
+                    "alert": { "content": "This is the second alert component", "style": "alert-danger" },
+                    "card": { "header": "Some Header", "body": "With supporting text below as a natural lead-in to additional content.", "footer": "Optional footer" },
+                    "format": 1
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Two Columns",
+                "options": [
+                  { "columns": [
+                      { "heading": "First Heading",
+                        "subheading": "Here's a subheading",
+                        "alert": { "content": "This is the alert component", "style": "alert-success" }
+                      },
+                      { "heading": "Another Heading",
+                        "subheading": "Here's a subheading",
+                        "alert": { "content": "This is the second alert component", "style": "alert-danger" }
+                      }
+                    ],
+                    "format": 10
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Welcome to the Course",
+                "options": [
+                    { "heading": "Another Heading",
+                      "subheading": "Here's a subheading",
+                      "alert": { "content": "This is the alert component", "style": "alert-danger" },
+                      "image": { "src": "img/Bitmap_400.jpg", "alt": "Plug Lockout", "caption": "Plug Lockout image" },
+                      "format": 1
+                    },
+                    { "heading": "Another Slide Section",
+                      "subheading": "Here's a second subheading",
+                      "alert": { "content": "This is the second alert component", "style": "alert-success" },
+                      "format": 1
+                    },
+                    { "heading": "Third Slide Section",
+                      "subheading": "Here's a second subheading",
+                      "alert": { "content": "This is the second alert component", "style": "alert-success" },
+                      "format": 1
+                    }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "An alt structure for content grouping (see JSON file)",
+                "options": [
+                  { "heading": "First Heading",
+                    "alert": { "content": "This is the alert component", "style": "alert-success" },
+                    "format": 1
+                  },
+                  { "heading": "Another Heading",
+                    "subheading": "Here's a subheading",
+                    "alert": { "content": "This is the second alert component", "style": "alert-danger" },
+                    "format": 1
+                  }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Knowledge Check",
+                "options": [
+                    { "knowledgecheck": {
+                        "header": "The very important NASA question would appear here",
+                        "body": [
+                            "A. This is the first answer choice",
+                            "B. This is the second answer choice",
+                            "C. This is the third answer choice",
+                            "D. This is the fourth answer choice"
+                        ],
+                        "answer": 3,
+                        "footer": "Please choose an answer above"
+                      },
+                      "format": 7
+                    }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "Custom Slide Demo",
+                "options": [
+                    { "heading": "Custom Content follows",
+                      "custom": [
+                        "<div class='test' style='color: blue;'>Hello</div>",
+                        "<div class='test' style='color: orange;'>this text was created with handcrafted HTML!</div>"
+                        ],
+                        "format": 1
+                    }
+                ]
+            },
+            {
+                "type": "slide",
+                "title": "An alt structure for content grouping (see JSON file)",
+                "options": [
+                    { "heading": "First Heading",
+                      "alert": { "content": "This is the alert component", "style": "alert-success" },
+                      "format": 1
+                    },
+                    { "heading": "Another Heading",
+                      "subheading": "Here's a subheading",
+                      "alert": { "content": "This is the second alert component", "style": "alert-danger" },
+                      "image": { "src": "img/Bitmap_400.jpg", "alt": "Plug Lockout", "caption": "Plug Lockout image" },
+                      "format": 1
+                    }
+                ]
+            },
+            {
+                "type": "menu",
+                "title": "Main Menu",
+                "items": [
+                    {
+                        "type": "external-link",
+                        "title": "Learn JS, it's fun",
+                        "link": "https://www.w3schools.com/js/default.asp"
+                    },
+                    {
+                        "type": "sequence",
+                        "title": "Learning as a Learner",
+                        "items": [
+                            {
+                                "type": "slide",
+                                "title": "hello blah",
+                                "options": {
+                                    "heading": "Welcome to the hello blah slide"
+                                }
+                            },
+                            {
+                                "type": "slide",
+                                "title": "alright",
+                                "options": {
+                                    "heading": "thats it!",
+                                    "subheading": "please go"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "menu",
+                        "title": "Submenu",
+                        "items": [
+                            {
+                                "type": "external-link",
+                                "title": "Must Watch Important Module",
+                                "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "external-link",
+                        "title": "Another Link Item",
+                        "link": "https://www.w3schools.com/js/default.asp"
+                    }
+                ]
+            }
+        ]
+    }
+}

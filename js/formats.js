@@ -301,6 +301,7 @@
   formatter.slideSpacer = function(spacer) {
 
       var slideSpacer = document.createElement("div");
+      slideSpacer.setAttribute('style','height: '+spacer.height);
       slideSpacer.innerHTML = '<br>';
 
       return slideSpacer;

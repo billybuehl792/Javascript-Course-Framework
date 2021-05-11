@@ -65,7 +65,7 @@
                 "options": [
                   { "subheading": "Here's a video",
                     "video": { "src": "video/NSE_Module_1.mp4", "captions": "video/NSE_Module_1.vtt", "placeholder": "video/placeholder.jpg" },
-                    "spacer": {},
+                    "spacer": {"height": "20px"},
                     "format": 8
                   }
                 ]
