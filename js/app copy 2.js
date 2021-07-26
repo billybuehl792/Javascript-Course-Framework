@@ -3,7 +3,6 @@
 var currentSlide;
 var mainSequence;
 var courseItems = [];
-var contentItems = []; // collection for content-only course items (slide/external-link)
 
 class Item {
     // Sequence, Slide, Menu, Link, etc.
@@ -31,10 +30,10 @@ class Item {
 
     static checkComplete() {
         if (mainSequence.complete) {
-            console.log("course completed!");
-            //alert('course is done, get outta here.');
+            console.log("course complete!");
+            alert('course is done, get outta here.');
         } else {
-            //console.log("course incomplete")
+            console.log("incomplete")
         }
     }
 
@@ -109,6 +108,7 @@ class Slide extends Item {
     constructor(_title, _options, _custom, _slideNum, _parent, _previous=null, _next=null) {
         super(_title, _parent, _previous, _next);
         this.type = "slide";
+        //this.format = _format;
         this.options = _options;
         this.custom = _custom;
         this.slideNum = _slideNum;
@@ -120,8 +120,165 @@ class Slide extends Item {
         return this.visited;
     }
 
+//--- SLIDE COMPONENTS--//
+    slideHeading(heading) {
+        // return slide heading HTML
+        var slideHead = document.createElement("h2");
+        slideHead.innerHTML = heading;
+        slideHead.className = "slide-heading";
+
+        return slideHead;
+    }
+
+    slideSubheading(subheading) {
+        // return slide subheading HTML
+        var slideSub = document.createElement("h3");
+        slideSub.innerHTML = subheading;
+        slideSub.className = "slide-subheading";
+
+        return slideSub;
+    }
+
+    slideList(list) {
+        // return slide list HTML
+        var slideList = document.createElement("ul");
+        slideList.className = "slide-list";
+
+        var listItem;
+        for (let i=0; i<list.length; i++) {
+            listItem = document.createElement("li");
+            listItem.className = "slide-list-elem";
+            listItem.innerHTML = list[i];
+            slideList.appendChild(listItem);
+        }
+
+        return slideList;
+    }
+
+    slideParagraph(paragraphs) {
+        // return slide list HTML
+        var div = document.createElement("div");
+        div.className = "paragraph";
+
+        var pHTML;
+        for (let i=0; i<paragraphs.length; i++) {
+            pHTML = document.createElement("p");
+            pHTML.innerHTML = paragraphs[i];
+            div.appendChild(pHTML);
+            div.appendChild(document.createElement("br"));
+        }
+
+        return div;
+    }
+
+    slideImage(image) {
+        // use Bootstrap 'figure' to display image with optional caption
+        var fig = document.createElement("figure");
+        fig.className = "figure";
+        var img = document.createElement("img");
+        img.className = "figure-img img-fluid";
+        img.src = image.src;
+        (image.alt) ? img.alt = image.alt : img.alt = "Image";
+        fig.appendChild(img);
+        if (image.caption) {
+          var figCaption = document.createElement("figcaption");
+          figCaption.className = "figure-caption";
+          figCaption.innerHTML = image.caption;
+          fig.appendChild(figCaption);
+        }
+
+        return fig;
+    }
+
+    slideVideo(video) {
+        var container = document.createElement("div");
+        container.className = "embed-responsive embed-responsive-16by9";
+        var vid = "<video controls poster='"+video.placeholder+"' class='embed-responsive-item'>";
+        vid += "<source src='"+video.src+"' type='video/mp4' />";
+        vid += "<track kind='captions' label='English Captions' src='"+video.captions+"' />";
+        vid += "</video>";
+        container.innerHTML = vid;
+
+        return container;
+    }
+
+    slideAlert(alert) {
+        // use Bootstrap 'alert' to display text (shadow and icon are optional)
+        var slideAlert = document.createElement("div");
+        slideAlert.className = "alert shadow "+alert.style; // shadow is optional
+        slideAlert.setAttribute("role","alert");
+        slideAlert.innerHTML = "<i class='bi bi-arrow-right-circle-fill'></i> "+alert.content; // icon is optional
+
+        return slideAlert;
+    }
+
+    slideCard(card) {
+        // use Bootstrap 'card' to display card component
+        var slideCard = document.createElement("div");
+        slideCard.className = "card shadow w-75"; // shadow and width classes are optional
+        var header = document.createElement("div");
+        header.className = "card-header bg-warning";
+        header.innerHTML = card.header;
+        slideCard.appendChild(header);
+
+        var body = document.createElement("div");
+        body.className = "card-body";
+        var title = document.createElement("p");
+        title.className = "card-text";
+        title.innerHTML = card.body;
+        body.appendChild(title);
+        slideCard.appendChild(body);
+
+        var footer = document.createElement("div");
+        footer.className = "card-footer text-muted";
+        footer.innerHTML = card.footer;
+        slideCard.appendChild(footer);
+
+        return slideCard;
+    }
+
+    slideReview(knowledgecheck) {
+        // use Bootstrap 'card' component for the knowledge check
+        var slideCard = document.createElement("div");
+        slideCard.className = "card shadow";
+        var header = document.createElement("div");
+        header.className = "card-header font-weight-bold";
+        header.innerHTML = knowledgecheck.header;
+        slideCard.appendChild(header);
+
+        var body = document.createElement("div");
+        body.className = "card-body";
+        for (let i=0; i<knowledgecheck.body.length; i++) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.innerHTML = knowledgecheck.body[i];
+          button.className = 'btn btn-outline-secondary btn-block';
+          button.onclick = function() {  // need to implement a response (modal?)
+            console.log('button '+i+' clicked');
+            if (knowledgecheck.answer === (i+1)) { console.log("this is the correct answer"); }
+          }
+          body.appendChild(button);
+        }
+        slideCard.appendChild(body);
+
+        var footer = document.createElement("div");
+        footer.className = "card-footer text-muted";
+        footer.innerHTML = knowledgecheck.footer;
+        slideCard.appendChild(footer);
+
+        return slideCard;
+    }
+
+    slideCustom(custom) {
+        // return custom HTML
+        var customHTML = document.createElement("div");
+        customHTML.className = "slide-custom";
+        customHTML.innerHTML = custom.join('');
+
+        return customHTML;
+    }
+
     // iterates JSON options object and parses out slide content
-    // Note: this calls code in formats.js to generate slide formatting and content
     getSectionContent(section,container) {
       var _this = this;
       $.each(section, function( key, value ) {
@@ -133,9 +290,7 @@ class Slide extends Item {
         if (key == "video") { container.appendChild(formatter.slideVideo(section.video)); }
         if (key == "alert") { container.appendChild(formatter.slideAlert(section.alert)); }
         if (key == "card") { container.appendChild(formatter.slideCard(section.card)); }
-        if (key == "knowledgecheck") { container.appendChild(formatter.slideReview(_this,section.knowledgecheck)); }
-        if (key == "divider") { container.appendChild(formatter.slideDivider(section.divider)); }
-        if (key == "spacer") { container.appendChild(formatter.slideSpacer(section.spacer)); }
+        if (key == "knowledgecheck") { container.appendChild(formatter.slideReview(section.knowledgecheck)); }
         if (key == "custom") { container.appendChild(formatter.slideCustom(section.custom)); }
       });
       return container;
@@ -173,6 +328,7 @@ class Slide extends Item {
 
       return slideContainer;
     }
+
 
     get slideContent() {
         var slideContent = document.createElement("div");
@@ -241,13 +397,6 @@ class Slide extends Item {
         } else {
             $("#back").prop("disabled", true);
         }
-    }
-
-    // called from knowledge check button handlers (supplies bool if correct and text of correct answer)
-    showQuestionResponse(correct,answer) {
-      (correct) ? $('#quiz-caption').text("You got it!") : $('#quiz-caption').text("Incorrect! The correct answer was:");
-      $('#quiz-body').text(answer);
-      $('#quizAnswer').modal('show');
     }
 
     setPageNumbers() {
@@ -356,7 +505,7 @@ class Menu extends Slide {
 
             // menu item onclicks
             menuItem.onclick = function() {
-              //console.log("menu item");
+              console.log("menu item");
                 item.render();
             }
 
@@ -380,6 +529,7 @@ class Menu extends Slide {
 
     get slideContent() {
         var html = super.slideContent;
+        console.log(html)
         var target = html.querySelector(".slide-content"); // insert menu items inside Bootstrap 'card' body
         target.appendChild(this.slideMenu);
 
@@ -418,33 +568,15 @@ class ExternalLink extends Item {
         super(_title, _parent, _previous, _next);
         this.type = "external-link";
         this.link = _link;
-        this.visited = false;
-    }
-
-    get complete() {
-        return this.visited;
+        this.complete = false;
     }
 
     render() {
         window.open(this.link);
-        this.visited = true;
+        this.complete = true;
         currentSlide.render();
     }
 }
-
-function addKeyHandlers() {
-		$(document).on('keydown', function(event) {
-      if ((event.keyCode == 39)) { // right arrow key
-				event.preventDefault();
-        $('#quizAnswer').modal('hide');
-        $("#next").click();
-			} else if ((event.keyCode == 37)) { // left arrow key
-				event.preventDefault();
-        $('#quizAnswer').modal('hide');
-        $("#back").click();
-			}
-    });
-	};
 
 
 function nextSlide() {
@@ -455,7 +587,6 @@ function nextSlide() {
             opacity: "0"
         }, 200, "swing", () => {
             currentSlide.next.render();
-            updateLMS();
         });
     }
 }
@@ -477,63 +608,14 @@ function genSlide(slideTitle, heading, subHeading, format=5) {
     var basicSlide = {
         "type": "slide",
         "title": slideTitle,
-        "options": [
-          { "heading": heading,
+        "options": {
+            "heading": heading,
             "subheading": subHeading,
             "format": format
-          }
-        ]
+        },
     }
     return basicSlide;
 }
-
-/* ===========================
-  --- SCORM-related functions
-============================ */
-
-// use data string from LMS to set completion state of course content items
-function loadCourseProgress(pStr) {
-    var itemCount = 0;
-    function getNumItems(menu) {
-        for (var i=0; i<menu.items.length; i++) {
-            if (menu.items[i].items) {
-               getNumItems(menu.items[i]);
-            } else {
-              contentItems.push(menu.items[i]); // 'contentItems' is global var
-              itemCount++;
-            }
-        }
-    }
-    getNumItems(mainSequence);
-    if (pStr) {
-      var progressItems = pStr.split(',');
-      //console.log(contentItems.length);
-      if (progressItems.length === contentItems.length) { // check data length recv'd against # items
-          for (var j=0; j < contentItems.length; j++) {
-            (progressItems[j] === '1') ? contentItems[j].visited = true : contentItems[j].visited = false;
-          }
-      } else { console.log('ERROR: data from LMS is incorrect for course content length'); }
-    }
-}
-
-// build and return string to update the LMS variable for completion tracking
-function getCourseProgress() {
-    var courseProgress= '';
-    for (var i=0; i < contentItems.length; i++) {
-      (contentItems[i].visited) ? courseProgress += '1' : courseProgress += '0';
-      if (i != (contentItems.length-1)) { courseProgress += ','; }
-    }
-    return courseProgress;
-}
-
-// update LMS with completion status
-function updateLMS() {
-  setSuspendData(getCourseProgress());
-}
-
-/* ===========================
-  --- END: SCORM-related functions
-============================ */
 
 $(document).ready(function() {
 
@@ -547,10 +629,9 @@ $(document).ready(function() {
         var config = JSON.parse(JSON.stringify(result));
         var main = config.mainSequence;
 
-        // set up UI framework
+        // set html tags
         $("title").html(config.courseID);
         $("#course-title").html(config.courseTitle);
-        addKeyHandlers(); // add key handlers for nav buttons
 
         // add intro
         if (config.genIntro) {
@@ -560,13 +641,6 @@ $(document).ready(function() {
 
         // generate and render mainSequence
         mainSequence = new Sequence(main.title, main.items);
-
-        // SCORM
-        initCourse(); // SCORM Connection - Enable when course ready for LMS
-        //LMSSuspendData = "1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1";
-        LMSSuspendData = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"; // for testing purposes only
-        loadCourseProgress(LMSSuspendData);
-
         mainSequence.render();
     });
 
