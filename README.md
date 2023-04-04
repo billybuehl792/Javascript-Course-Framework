@@ -1,4 +1,4 @@
-# NSC HTML5 Course Development Framework
+# HTML5 Course Development Framework
 ## Overview
 This framework is used to generate HTML5 courses. The framework is only a frontend tool that is written entirely in JS. To communicate with the LMS\(Learning Management System\), `app.js` issues GET requests using the SCORM API. Currently, a course must be configured with a manually written config.json file, but in the future a GUI may be available.
 
