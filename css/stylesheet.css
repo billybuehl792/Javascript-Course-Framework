@@ -20,12 +20,12 @@ body, button, input {
 }
 input:hover, button:hover, .link:hover, .menu-item:hover {
     filter: brightness(1.1);
-    transition: .2s ease;
+    transition: filter .2s ease;
     cursor: pointer;
 }
 input[disabled], input[disabled]:hover {
     filter: brightness(1);
-    transition: .2s ease;
+    transition: filter .2s ease;
     background-color: var(--dark-grey);
     cursor: unset;
 }
