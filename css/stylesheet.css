@@ -48,7 +48,7 @@ input[disabled], input[disabled]:hover {
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 .icon-container {
     display: flex;
@@ -93,6 +93,11 @@ input[disabled], input[disabled]:hover {
 #external-links {
     display: flex;
     flex-direction: row;
+}
+#external-links a img {
+    width: 2rem;
+    filter: invert(1);
+    padding: .5rem;
 }
 .control-button {
     border-radius: 5px;

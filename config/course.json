@@ -1,8 +1,8 @@
 {
-    "courseTitle": "Strategic Reasons for Thinking Strategically",
-    "courseID": "WBT-123-SS-10",
-    "studyGuidePDF": "WBT-SS-123-101_508.pdf",
-	"studyGuidePrint": "WBT-SS-123-101_studyGuide.pdf",
+    "courseTitle": "Demonstration Slide Sequence",
+    "courseID": "id-12345",
+    "studyGuidePDF": "#",
+	"studyGuidePrint": "#",
     "genIntro": true,
     "mainSequence": {
         "type": "sequence",
@@ -10,101 +10,92 @@
         "items": [
             {
                 "type": "slide",
-                "title": "Welcome to the Course",
+                "title": "Content Item",
                 "options": {
-                    "subheading": "In this course you'll learn all sorts of great stuff.",
-                    "list": [
-                        "strategy",
-                        "education"
-                    ]  
+                    "heading": "Content Item",
+                    "subheading": "To configure a slide, add a JSON object with the 'type' of 'slide' to the 'mainSequence' array in the 'course.json' file"
                 }
             },
             {
                 "type": "slide",
-                "title": "Hello This is a Content Slide",
+                "title": "Another Content Item",
                 "options": {
-                    "heading": "Cool Bands",
-                    "subheading": "Here is a list of cool bands I like:",
+                    "heading": "Content Item with list",
+                    "subheading": "To make a list, add an array titled, 'list' to the 'options' object of an item",
                     "list": [
-                        "Suburban Lawns",
-                        "Anons",
-                        "Kino",
-                        "Broadcast",
-                        "Bauhaus"
+                        "List Item 1",
+                        "List Item 2",
+                        "List Item 3"
                     ] 
                 }
             },
             {
                 "type": "slide",
-                "title": "Custom Slide Demo",
+                "title": "Custom Content Item",
                 "options": {
-                    "heading": "test heading"
+                    "heading": "Content Item with custom html",
+                    "subheading": "To add custom html to a side, add an array titled 'custom' to the item object with html strings"
                 },
                 "custom": [
-                    "<div class='test' style='color: blue;'>Hello</div>",
-                    "<div class='test' style='color: orange;'>this text was created with handcrafted HTML!</div"
+                    "<div class='test' style='color: blue;'>blue text</div>",
+                    "<div class='test' style='color: orange;'>orange text</div>"
                 ]
             },
             {
                 "type": "slide",
-                "title": "Objectives",
+                "title": "Menu Item",
                 "options": {
-                    "subheading": "This course has several objectives",
-                    "list": [
-                        "learn",
-                        "educate",
-                        "consume knowledge"
-                    ]  
+                    "heading": "Menu Item",
+                    "subheading": "To create a menu item (next slide), add a JSON object to the 'items' array with the 'type' of 'menu'"
                 }
             },
             {
                 "type": "menu",
-                "title": "Main Menu",
+                "title": "Menu Item",
                 "items": [
                     {
                         "type": "menu",
-                        "title": "submenu",
+                        "title": "Submenu",
                         "items": [
                             {
                                 "type": "external-link",
-                                "title": "Must Watch Important Module",
+                                "title": "External Link with 'type' 'external-link'",
                                 "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                             }
                         ]
                     },
                     {
                         "type": "external-link",
-                        "title": "Learn JS, it's fun",
+                        "title": "External Link",
                         "link": "https://www.w3schools.com/js/default.asp"
                     },
                     {
                         "type": "sequence",
-                        "title": "Learning as a Learner",
+                        "title": "Nested Sequence",
                         "items": [
                             {
                                 "type": "slide",
-                                "title": "hello blah",
+                                "title": "Content Item",
                                 "options": {
-                                    "heading": "Welcome to the hello blah slide"
+                                    "heading": "Basic Content Item"
                                 }
                             },
                             {
                                 "type": "slide",
-                                "title": "alright",
+                                "title": "Another Content Item",
                                 "options": {
-                                    "heading": "thats it!",
-                                    "subheading": "please go"
+                                    "heading": "Another Basic Content Item"
                                 }
                             }
                         ]
                     },
                     {
                         "type": "sequence",
-                        "title": "demo sequence",
+                        "title": "Another Nested Sequence",
                         "items": [
                             {
                                 "type": "menu",
-                                "title": "submenu",
+                                "title": "Submenu",
                                 "items": [
                                     {
                                         "type": "external-link",
@@ -125,29 +116,15 @@
                                 "options": {
                                     "subheading": "You should now be able to:",
                                     "list": [
-                                        "learn",
-                                        "think strategically about thinking",
-                                        "learn strategically learned strategy"
+                                        "Create a slide sequence with a json file"
                                     ]
                                 }
                             },
                             {
                                 "type": "slide",
-                                "title": "Questions? Comments?",
+                                "title": "Complete",
                                 "options": {
-                                    "paragraph": [
-                                    "If you've got questions take it up with the boss.",
-                                    "call this number",
-                                    "0123456789"
-                                    ]
-                                }
-
-                            },
-                            {
-                                "type": "slide",
-                                "title": "complete",
-                                "options": {
-                                    "heading": "wow youre done!"
+                                    "heading": "Thank you for watching!"
                                 }
                             }
                         ]
